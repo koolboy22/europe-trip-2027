@@ -230,11 +230,11 @@
     <section id="flight-section" class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
       <div class="flex flex-col md:flex-row md:items-center justify-between gap-2 mb-5">
         <div>
-          <h2 class="text-xl font-bold text-slate-900">✈️ 한국(4명) + 싱가포르(1명) 가성비 항공권 & 합류 플랜</h2>
-          <p class="text-xs text-slate-500 mt-0.5">전날 밤(10/8 금) 출발 → 토요일(10/9) 오전 뮌헨 공항(MUC) 동시 합류 (다구간 오픈조 발권)</p>
+          <h2 class="text-xl font-bold text-slate-900">✈️ 한국(4명) + 싱가포르(1명) 항공권 & 합류 옵션 비교</h2>
+          <p class="text-xs text-slate-500 mt-0.5">다구간(뮌헨 IN / 프라하·부다페스트 OUT) 발권 기준 · <b>옵션 A(가성비 1회 경유·오전 도착)</b> vs <b>옵션 B(루프트한자 뮌헨 직항)</b></p>
         </div>
-        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800">
-          💡 경유지(이스탄불/도하)에서 만나 같은 비행기로 뮌헨 입국 가능!
+        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-blue-100 text-blue-800">
+          🗳️ 하단 투표 보드에서 선호하는 항공편 옵션에 투표해 주세요!
         </span>
       </div>
 
@@ -242,30 +242,65 @@
         <table class="w-full text-sm text-left border-collapse">
           <thead>
             <tr class="bg-slate-100 text-slate-700 text-xs uppercase">
-              <th class="py-3 px-4 rounded-tl-xl">출발 그룹</th>
-              <th class="py-3 px-4">추천 항공사 (다구간)</th>
-              <th class="py-3 px-4">가는 편 (10/8 금 밤 → 10/9 토 도착)</th>
+              <th class="py-3 px-4 rounded-tl-xl">옵션 구분</th>
+              <th class="py-3 px-4">출발 그룹</th>
+              <th class="py-3 px-4">항공사 & 편명</th>
+              <th class="py-3 px-4">가는 편 (10/9 토 뮌헨 도착)</th>
               <th class="py-3 px-4">오는 편 (10/22 금 출발 → 10/23 토 도착)</th>
               <th class="py-3 px-4 rounded-tr-xl">1인 예상 요금</th>
             </tr>
           </thead>
           <tbody class="divide-y divide-slate-200">
-            <tr>
-              <td class="py-3.5 px-4 font-bold text-blue-700">🇰🇷 한국 출발 (4명)</td>
-              <td class="py-3.5 px-4 font-medium">터키항공(TK) / 카타르(QR) / 핀에어(AY)<br/><span class="text-xs text-slate-500">(대안: 루프트한자 직항 / 대한항공 프라하 귀국직항)</span></td>
-              <td class="py-3.5 px-4">ICN (금 23:00~01:00) → 경유 → <b>MUC (토 09:00~13:00)</b></td>
-              <td class="py-3.5 px-4">PRG (금 오후/저녁) → 경유/직항 → ICN (토 오후 도착)</td>
+            <!-- Option A: Cost Effective 1-Stop -->
+            <tr class="bg-emerald-50/40">
+              <td rowspan="2" class="py-3.5 px-4 font-extrabold text-emerald-800 border-r border-slate-200 align-top">
+                옵션 A<br/>
+                <span class="text-xs font-bold text-emerald-600">가성비 1회 경유<br/>(토요일 오전 합류)</span>
+              </td>
+              <td class="py-3.5 px-4 font-bold text-blue-700">🇰🇷 한국팀 (4명)</td>
+              <td class="py-3.5 px-4 font-medium">터키항공(TK) / 카타르(QR) / 핀에어(AY)</td>
+              <td class="py-3.5 px-4">ICN (10/8 금 23:00~01:00) → 경유 → <b>MUC (10/9 토 09:00~13:00)</b></td>
+              <td class="py-3.5 px-4">PRG/BUD (금 오후·저녁) → 1회 경유 → ICN (토 오후 도착)</td>
               <td class="py-3.5 px-4 font-bold text-slate-900">약 125만 ~ 150만원</td>
             </tr>
-            <tr>
-              <td class="py-3.5 px-4 font-bold text-emerald-700">🇸🇬 싱가포르 출발 (1명)</td>
-              <td class="py-3.5 px-4 font-medium">터키항공(TK) / 카타르(QR)<br/><span class="text-xs text-slate-500">(또는 루프트한자/싱가포르항공 뮌헨 직항)</span></td>
-              <td class="py-3.5 px-4">SIN (금 22:00~00:30) → 경유/직항 → <b>MUC (토 06:00~13:00)</b></td>
-              <td class="py-3.5 px-4">PRG (금 오후/저녁) → 경유 → SIN (토 오후 도착)</td>
+            <tr class="bg-emerald-50/40">
+              <td class="py-3.5 px-4 font-bold text-emerald-700">🇸🇬 싱가포르 (1명)</td>
+              <td class="py-3.5 px-4 font-medium">터키항공(TK) / 카타르(QR)</td>
+              <td class="py-3.5 px-4">SIN (10/8 금 밤) → 경유지 합류 → <b>MUC (10/9 토 09:00~13:00)</b></td>
+              <td class="py-3.5 px-4">PRG/BUD (금 오후·저녁) → 1회 경유 → SIN (토 오후 도착)</td>
               <td class="py-3.5 px-4 font-bold text-slate-900">약 125만 ~ 155만원<br/><span class="text-xs font-normal text-slate-500">(S$1,200~1,500)</span></td>
+            </tr>
+
+            <!-- Option B: Direct to Munich (Lufthansa / SQ) -->
+            <tr class="bg-blue-50/40">
+              <td rowspan="2" class="py-3.5 px-4 font-extrabold text-blue-900 border-r border-slate-200 align-top">
+                옵션 B<br/>
+                <span class="text-xs font-bold text-blue-600">뮌헨 직항 우선<br/>(체력 세이브 ⭐)</span>
+              </td>
+              <td class="py-3.5 px-4 font-bold text-blue-700">🇰🇷 한국팀 (4명)</td>
+              <td class="py-3.5 px-4 font-medium"><b>루프트한자 (LH719 직항)</b><br/><span class="text-xs text-slate-500">(또는 귀국편 대한항공 직항 조합)</span></td>
+              <td class="py-3.5 px-4">ICN (10/9 토 12:20~13:30) → <b>MUC 직항 (토 17:40~18:45 도착, 13시간)</b></td>
+              <td class="py-3.5 px-4">PRG/BUD → 뮌헨·프랑크푸르트 1회 환승 → ICN 직항</td>
+              <td class="py-3.5 px-4 font-bold text-slate-900">약 150만 ~ 185만원</td>
+            </tr>
+            <tr class="bg-blue-50/40">
+              <td class="py-3.5 px-4 font-bold text-emerald-700">🇸🇬 싱가포르 (1명)</td>
+              <td class="py-3.5 px-4 font-medium"><b>루프트한자 (LH769 직항)</b> 또는<br/><b>싱가포르항공 (SQ328 직항)</b></td>
+              <td class="py-3.5 px-4">SIN (금 23:45 / 토 00:25) → <b>MUC 직항 (토 06:00~06:40 도착, 12.5시간)</b></td>
+              <td class="py-3.5 px-4">PRG/BUD → 뮌헨·프랑크푸르트 1회 환승 → SIN 직항</td>
+              <td class="py-3.5 px-4 font-bold text-slate-900">약 145만 ~ 185만원<br/><span class="text-xs font-normal text-slate-500">(S$1,400~1,800)</span></td>
             </tr>
           </tbody>
         </table>
+      </div>
+
+      <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+        <div class="p-3 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-900">
+          💡 <b>옵션 A(1회 경유) 선택 시:</b> 한국팀과 싱가포르 친구가 경유지(이스탄불/도하)에서 새벽에 만나 같은 비행기로 토요일 오전에 뮌헨에 도착하므로 첫날 오후부터 시내 관광이 가능합니다.
+        </div>
+        <div class="p-3 rounded-xl bg-blue-50 border border-blue-200 text-blue-900">
+          💡 <b>옵션 B(루프트한자 직항) 선택 시:</b> 싱가포르 친구가 토요일 아침에 먼저 도착해 체크인·휴식 후, 저녁 7시경 도착하는 한국팀 4명을 맞이합니다. (뮌헨 중앙역 지하 EDEKA 마트는 밤 11시·일요일도 영업해 저녁 도착 후 장보기 가능!)
+        </div>
       </div>
     </section>
 
