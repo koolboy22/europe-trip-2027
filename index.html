@@ -453,6 +453,118 @@
 
   </main>
 
+  <!-- Mobile-Friendly Edit Schedule Modal -->
+  <div id="edit-schedule-modal" class="fixed inset-0 z-50 hidden bg-slate-900/70 backdrop-blur-sm flex items-center justify-center p-3 sm:p-6">
+    <div class="bg-white rounded-3xl shadow-2xl border border-slate-200 w-full max-w-xl max-h-[90vh] flex flex-col overflow-hidden">
+      <div class="px-5 py-4 bg-slate-900 text-white flex items-center justify-between">
+        <div>
+          <span id="modal-sched-badge" class="text-xs font-extrabold text-amber-300">D1 · 10/9 (토)</span>
+          <h3 class="text-base font-extrabold mt-0.5">✏️ 모바일/웹 일정 실시간 수정</h3>
+        </div>
+        <button onclick="closeEditScheduleModal()" class="text-slate-400 hover:text-white text-xl font-bold px-2">&times;</button>
+      </div>
+      <div class="p-5 overflow-y-auto space-y-4 text-xs">
+        <input type="hidden" id="edit-sched-day" />
+        <div>
+          <label class="font-bold text-slate-700 block mb-1">일차 제목</label>
+          <input id="edit-sched-title" type="text" class="w-full rounded-xl border border-slate-300 px-3 py-2 text-sm font-bold text-slate-900 focus:outline-none focus:border-blue-600" />
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="font-bold text-slate-700 block mb-1">🚆 이동 수단</label>
+            <input id="edit-sched-transport" type="text" class="w-full rounded-xl border border-slate-300 px-3 py-2 text-xs text-slate-800" />
+          </div>
+          <div>
+            <label class="font-bold text-slate-700 block mb-1">🥾 트레킹 난이도·거리</label>
+            <input id="edit-sched-trek" type="text" class="w-full rounded-xl border border-slate-300 px-3 py-2 text-xs text-slate-800" />
+          </div>
+        </div>
+        <div>
+          <label class="font-bold text-slate-700 block mb-1">🍷 저녁 요약 배지</label>
+          <input id="edit-sched-dinner" type="text" class="w-full rounded-xl border border-slate-300 px-3 py-2 text-xs text-slate-800" />
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 bg-slate-50 p-3 rounded-xl border border-slate-200">
+          <div>
+            <label class="font-bold text-slate-600 block mb-1">☀️ 아침</label>
+            <input id="edit-sched-meal-b" type="text" class="w-full rounded-lg border border-slate-300 px-2.5 py-1.5 text-xs" />
+          </div>
+          <div>
+            <label class="font-bold text-slate-600 block mb-1">🥪 점심</label>
+            <input id="edit-sched-meal-l" type="text" class="w-full rounded-lg border border-slate-300 px-2.5 py-1.5 text-xs" />
+          </div>
+          <div>
+            <label class="font-bold text-slate-600 block mb-1">🍷 저녁</label>
+            <input id="edit-sched-meal-d" type="text" class="w-full rounded-lg border border-slate-300 px-2.5 py-1.5 text-xs" />
+          </div>
+        </div>
+        <div>
+          <label class="font-bold text-slate-700 block mb-1">⏰ 시간대별 상세 동선 (한 줄에 하나씩: <code class="text-blue-600">시간 | 내용</code> 형식)</label>
+          <textarea id="edit-sched-timeline" rows="6" class="w-full rounded-xl border border-slate-300 p-3 text-xs font-mono leading-relaxed focus:outline-none focus:border-blue-600"></textarea>
+        </div>
+        <div>
+          <label class="font-bold text-slate-700 block mb-1">📌 핵심 체크포인트</label>
+          <textarea id="edit-sched-check" rows="2" class="w-full rounded-xl border border-slate-300 p-2.5 text-xs focus:outline-none focus:border-blue-600"></textarea>
+        </div>
+      </div>
+      <div class="px-5 py-3.5 bg-slate-100 border-t border-slate-200 flex items-center justify-between gap-2">
+        <span class="text-[11px] text-slate-500">☁️ 저장 시 Supabase 클라우드 DB에 즉시 반영됩니다</span>
+        <div class="flex items-center gap-2">
+          <button onclick="closeEditScheduleModal()" class="px-4 py-2 rounded-xl bg-white border border-slate-300 text-xs font-bold text-slate-700">취소</button>
+          <button onclick="saveEditedSchedule()" class="px-5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-xs font-bold text-white shadow">☁️ 저장하기</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile-Friendly Edit Place Modal -->
+  <div id="edit-place-modal" class="fixed inset-0 z-50 hidden bg-slate-900/70 backdrop-blur-sm flex items-center justify-center p-3 sm:p-6">
+    <div class="bg-white rounded-3xl shadow-2xl border border-slate-200 w-full max-w-lg max-h-[90vh] flex flex-col overflow-hidden">
+      <div class="px-5 py-4 bg-slate-900 text-white flex items-center justify-between">
+        <div>
+          <span id="modal-place-badge" class="text-xs font-extrabold text-emerald-300">맛집·마트·숙소 수정</span>
+          <h3 class="text-base font-extrabold mt-0.5">✏️ 장소 정보 실시간 수정</h3>
+        </div>
+        <button onclick="closeEditPlaceModal()" class="text-slate-400 hover:text-white text-xl font-bold px-2">&times;</button>
+      </div>
+      <div class="p-5 overflow-y-auto space-y-3.5 text-xs">
+        <input type="hidden" id="edit-place-idx" />
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="font-bold text-slate-700 block mb-1">거점 도시</label>
+            <input id="edit-place-base" type="text" class="w-full rounded-xl border border-slate-300 px-3 py-2 text-xs font-bold" />
+          </div>
+          <div>
+            <label class="font-bold text-slate-700 block mb-1">배지 라벨</label>
+            <input id="edit-place-badge" type="text" class="w-full rounded-xl border border-slate-300 px-3 py-2 text-xs font-bold" />
+          </div>
+        </div>
+        <div>
+          <label class="font-bold text-slate-700 block mb-1">장소명</label>
+          <input id="edit-place-name" type="text" class="w-full rounded-xl border border-slate-300 px-3 py-2 text-sm font-bold text-slate-900" />
+        </div>
+        <div>
+          <label class="font-bold text-slate-700 block mb-1">설명 및 대표 메뉴</label>
+          <textarea id="edit-place-desc" rows="3" class="w-full rounded-xl border border-slate-300 p-2.5 text-xs"></textarea>
+        </div>
+        <div>
+          <label class="font-bold text-slate-700 block mb-1">💡 예약·이용 팁</label>
+          <textarea id="edit-place-tip" rows="2" class="w-full rounded-xl border border-slate-300 p-2.5 text-xs"></textarea>
+        </div>
+        <div>
+          <label class="font-bold text-slate-700 block mb-1">📍 구글 지도 URL</label>
+          <input id="edit-place-map" type="text" class="w-full rounded-xl border border-slate-300 px-3 py-2 text-xs font-mono" />
+        </div>
+      </div>
+      <div class="px-5 py-3.5 bg-slate-100 border-t border-slate-200 flex items-center justify-between gap-2">
+        <span class="text-[11px] text-slate-500">☁️ 저장 시 모든 참석자 화면에 즉시 반영</span>
+        <div class="flex items-center gap-2">
+          <button onclick="closeEditPlaceModal()" class="px-4 py-2 rounded-xl bg-white border border-slate-300 text-xs font-bold text-slate-700">취소</button>
+          <button onclick="saveEditedPlace()" class="px-5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-xs font-bold text-white shadow">☁️ 저장하기</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <footer class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center text-xs text-slate-400 border-t border-slate-200 mt-12">
     2027 유럽 동창 여행 플래너 · Notion 연동 로컬 웹 대시보드
   </footer>
@@ -1126,6 +1238,7 @@
 
     // 3. Schedule Rendering (Rich Hourly Timeline + Meals + Checkpoints)
     function renderSchedule(filter = "ALL") {
+      currentScheduleFilter = filter;
       const grid = document.getElementById("schedule-grid");
       const items = filter === "ALL" ? SCHEDULE_DATA : SCHEDULE_DATA.filter(d => d.base === filter);
       grid.innerHTML = items.map(item => `
@@ -1177,20 +1290,26 @@
           </div>
 
           <div class="mt-4 pt-3 border-t border-slate-100 flex flex-wrap items-center justify-between gap-2">
-            <div class="flex items-center gap-1.5">
+            <div class="flex flex-wrap items-center gap-1.5">
               <button onclick="jumpToDayMap('${item.day}')"
                       class="px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-xs font-bold text-white flex items-center gap-1 shadow-sm transition">
-                <span>🗺️ 지도에서 동선 보기</span>
+                <span>🗺️ 지도 동선</span>
               </button>
               <a href="${(DAILY_ROUTES[item.day] && DAILY_ROUTES[item.day].gmapsUrl) || '#'}" target="_blank"
                  class="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-xs font-bold text-slate-700 flex items-center gap-1 transition">
-                <span>📍 구글맵 길찾기 ↗</span>
+                <span>📍 구글맵 ↗</span>
               </a>
             </div>
-            <button onclick="prefillComment('${item.day} ${item.date} (${item.base})')"
-                    class="px-3 py-1.5 rounded-lg bg-blue-50 hover:bg-blue-100 text-xs font-bold text-blue-700 flex items-center gap-1 transition">
-              <span>💬 의견 남기기</span>
-            </button>
+            <div class="flex items-center gap-1.5">
+              <button onclick="openEditScheduleModal('${item.day}')"
+                      class="px-3 py-1.5 rounded-lg bg-amber-100 hover:bg-amber-200 text-xs font-bold text-amber-900 flex items-center gap-1 transition">
+                <span>✏️ 일정 수정</span>
+              </button>
+              <button onclick="prefillComment('${item.day} ${item.date} (${item.base})')"
+                      class="px-3 py-1.5 rounded-lg bg-blue-50 hover:bg-blue-100 text-xs font-bold text-blue-700 flex items-center gap-1 transition">
+                <span>💬 의견</span>
+              </button>
+            </div>
           </div>
         </div>
       `).join("");
@@ -1210,9 +1329,15 @@
     }
 
     // 4. Places Rendering
+    let currentScheduleFilter = "ALL";
+    let currentPlaceFilter = "ALL";
+
     function renderPlaces(filter = "ALL") {
+      currentPlaceFilter = filter;
       const grid = document.getElementById("places-grid");
-      const items = filter === "ALL" ? PLACES_DATA : PLACES_DATA.filter(p => p.category === filter);
+      const items =PLACES_DATA
+        .map((p, idx) => ({ ...p, _idx: idx }))
+        .filter(p => filter === "ALL" ? true : p.category === filter);
       grid.innerHTML = items.map(p => `
         <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200 flex flex-col justify-between">
           <div>
@@ -1227,10 +1352,15 @@
             </div>
           </div>
           <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between gap-2 text-xs">
-            <a href="${p.mapUrl}" target="_blank" class="font-bold text-blue-600 hover:underline flex items-center gap-1">
-              📍 구글 지도 열기
-            </a>
-            ${p.webUrl ? `<a href="${p.webUrl}" target="_blank" class="font-semibold text-slate-500 hover:text-slate-800">🌐 공식 홈페이지 ↗</a>` : ""}
+            <div class="flex items-center gap-3">
+              <a href="${p.mapUrl}" target="_blank" class="font-bold text-blue-600 hover:underline flex items-center gap-1">
+                📍 구글 지도
+              </a>
+              ${p.webUrl ? `<a href="${p.webUrl}" target="_blank" class="font-semibold text-slate-500 hover:text-slate-800">🌐 홈페이지 ↗</a>` : ""}
+            </div>
+            <button onclick="openEditPlaceModal(${p._idx})" class="px-2.5 py-1 rounded-lg bg-amber-100 hover:bg-amber-200 text-amber-900 font-bold">
+              ✏️ 수정
+            </button>
           </div>
         </div>
       `).join("");
@@ -1355,7 +1485,7 @@
         try {
           const { data, error } = await sbClient
             .from("trip_feedback")
-            .select("votes, comments")
+            .select("votes, comments, custom_schedule, custom_places")
             .eq("id", "main")
             .single();
           if (!error && data) {
@@ -1363,6 +1493,15 @@
               votes: data.votes || DEFAULT_FEEDBACK_STATE.votes,
               comments: data.comments || DEFAULT_FEEDBACK_STATE.comments
             };
+            if (Array.isArray(data.custom_schedule) && data.custom_schedule.length > 0) {
+              SCHEDULE_DATA.splice(0, SCHEDULE_DATA.length, ...data.custom_schedule);
+              renderSchedule(currentScheduleFilter || "ALL");
+              renderDayRouteTabs();
+            }
+            if (Array.isArray(data.custom_places) && data.custom_places.length > 0) {
+              PLACES_DATA.splice(0, PLACES_DATA.length, ...data.custom_places);
+              renderPlaces(currentPlaceFilter || "ALL");
+            }
             renderPolls();
             renderComments();
             return;
@@ -1395,12 +1534,111 @@
             id: "main",
             votes: feedbackState.votes,
             comments: feedbackState.comments,
+            custom_schedule: SCHEDULE_DATA,
+            custom_places: PLACES_DATA,
             updated_at: new Date().toISOString()
           });
         return !error;
       } catch (e) {
         console.error("Supabase save error:", e);
         return false;
+      }
+    }
+
+    // 7. Mobile & Web Live Editor Functions (Schedule & Places)
+    function openEditScheduleModal(dayKey) {
+      const item = SCHEDULE_DATA.find(d => d.day === dayKey);
+      if (!item) return;
+      document.getElementById("edit-sched-day").value = item.day;
+      document.getElementById("modal-sched-badge").textContent = `${item.day} · ${item.date} (${item.base})`;
+      document.getElementById("edit-sched-title").value = item.title || "";
+      document.getElementById("edit-sched-transport").value = item.transport || "";
+      document.getElementById("edit-sched-trek").value = item.trek || "";
+      document.getElementById("edit-sched-dinner").value = item.dinner || "";
+      document.getElementById("edit-sched-meal-b").value = (item.meals && item.meals.b) || "";
+      document.getElementById("edit-sched-meal-l").value = (item.meals && item.meals.l) || "";
+      document.getElementById("edit-sched-meal-d").value = (item.meals && item.meals.d) || "";
+      document.getElementById("edit-sched-timeline").value = (item.timeline || [])
+        .map(t => `${t.time} | ${t.act}`)
+        .join("\n");
+      document.getElementById("edit-sched-check").value = item.check || "";
+      document.getElementById("edit-schedule-modal").classList.remove("hidden");
+    }
+
+    function closeEditScheduleModal() {
+      document.getElementById("edit-schedule-modal").classList.add("hidden");
+    }
+
+    async function saveEditedSchedule() {
+      const dayKey = document.getElementById("edit-sched-day").value;
+      const item = SCHEDULE_DATA.find(d => d.day === dayKey);
+      if (!item) return;
+
+      item.title = document.getElementById("edit-sched-title").value.trim() || item.title;
+      item.transport = document.getElementById("edit-sched-transport").value.trim();
+      item.trek = document.getElementById("edit-sched-trek").value.trim();
+      item.dinner = document.getElementById("edit-sched-dinner").value.trim();
+      item.meals = {
+        b: document.getElementById("edit-sched-meal-b").value.trim(),
+        l: document.getElementById("edit-sched-meal-l").value.trim(),
+        d: document.getElementById("edit-sched-meal-d").value.trim()
+      };
+      const rawLines = document.getElementById("edit-sched-timeline").value.split("\n").map(l => l.trim()).filter(Boolean);
+      item.timeline = rawLines.map(line => {
+        const parts = line.split("|");
+        if (parts.length >= 2) {
+          return { time: parts[0].trim(), act: parts.slice(1).join("|").trim() };
+        }
+        return { time: "일정", act: line };
+      });
+      item.check = document.getElementById("edit-sched-check").value.trim();
+
+      renderSchedule(currentScheduleFilter || "ALL");
+      closeEditScheduleModal();
+
+      const ok = await saveFeedbackToSupabase();
+      if (ok) {
+        alert(`✅ ${item.day} 일정이 클라우드 DB에 저장되어 모든 참석자 화면에 반영되었습니다!`);
+      } else {
+        alert("임시 반영되었습니다 (클라우드 연결 확인 필요).");
+      }
+    }
+
+    function openEditPlaceModal(idx) {
+      const p = PLACES_DATA[idx];
+      if (!p) return;
+      document.getElementById("edit-place-idx").value = idx;
+      document.getElementById("modal-place-badge").textContent = `${p.base} · ${p.typeBadge}`;
+      document.getElementById("edit-place-base").value = p.base || "";
+      document.getElementById("edit-place-badge").value = p.typeBadge || "";
+      document.getElementById("edit-place-name").value = p.name || "";
+      document.getElementById("edit-place-desc").value = p.desc || "";
+      document.getElementById("edit-place-tip").value = p.tip || "";
+      document.getElementById("edit-place-map").value = p.mapUrl || "";
+      document.getElementById("edit-place-modal").classList.remove("hidden");
+    }
+
+    function closeEditPlaceModal() {
+      document.getElementById("edit-place-modal").classList.add("hidden");
+    }
+
+    async function saveEditedPlace() {
+      const idx = parseInt(document.getElementById("edit-place-idx").value, 10);
+      const p = PLACES_DATA[idx];
+      if (!p) return;
+      p.base = document.getElementById("edit-place-base").value.trim() || p.base;
+      p.typeBadge = document.getElementById("edit-place-badge").value.trim() || p.typeBadge;
+      p.name = document.getElementById("edit-place-name").value.trim() || p.name;
+      p.desc = document.getElementById("edit-place-desc").value.trim();
+      p.tip = document.getElementById("edit-place-tip").value.trim();
+      p.mapUrl = document.getElementById("edit-place-map").value.trim() || p.mapUrl;
+
+      renderPlaces(currentPlaceFilter || "ALL");
+      closeEditPlaceModal();
+
+      const ok = await saveFeedbackToSupabase();
+      if (ok) {
+        alert(`✅ [${p.name}] 정보가 클라우드 DB에 저장되었습니다!`);
       }
     }
 
