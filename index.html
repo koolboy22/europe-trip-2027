@@ -1160,24 +1160,40 @@
       document.getElementById("route-panel-summary").textContent = routeData.summary;
       document.getElementById("gmaps-full-dir-btn").href = routeData.gmapsUrl;
 
-      // Render Right Panel Steps
+      // Render Right Panel Steps (Color-coded by actual transport mode)
+      function getModeColor(modeStr) {
+        if (!modeStr) return MODE_COLORS.train;
+        // 1순위: 기차·철도·S반·U반·트램 (파란색 #2563eb)
+        if (/🚆|🚇|🚋|기차|철도|S반|S1|S8|U반|U4|트램|Railjet|EC|교외선/.test(modeStr)) return MODE_COLORS.train;
+        // 2순위: 전용렌트·버스·밴·드라이브 (주황색 #f97316)
+        if (/🚐|🚌|렌트|버스|셔틀|밴|드라이브|우버|유료도로/.test(modeStr)) return MODE_COLORS.drive;
+        // 3순위: 케이블카·곤돌라·유람선·크루즈 (보라색 #9333ea)
+        if (/🚡|⛴️|곤돌라|케이블카|유람선|크루즈/.test(modeStr)) return MODE_COLORS.cable;
+        // 4순위: 트레킹·도보·산책 (초록색 #059669)
+        if (/🥾|🛒|🍽️|🍺|✈️|트레킹|도보|산책/.test(modeStr)) return MODE_COLORS.trek;
+        return MODE_COLORS.train;
+      }
+
       const stepsEl = document.getElementById("route-steps-list");
-      stepsEl.innerHTML = routeData.stops.map((s, idx) => `
+      stepsEl.innerHTML = routeData.stops.map((s, idx) => {
+        const badgeColor = getModeColor(s.mode);
+        return `
         <div onclick="focusStop(${s.coords[0]}, ${s.coords[1]}, ${idx})"
              class="p-3 rounded-xl bg-white border border-slate-200 hover:border-blue-400 cursor-pointer transition shadow-sm">
           <div class="flex items-center justify-between gap-2">
             <div class="flex items-center gap-2">
-              <span style="background:${s.color}" class="w-6 h-6 rounded-full text-white text-xs font-extrabold inline-flex items-center justify-center shrink-0">${s.num}</span>
+              <span style="background:${badgeColor}" class="w-6 h-6 rounded-full text-white text-xs font-extrabold inline-flex items-center justify-center shrink-0">${s.num}</span>
               <span class="text-xs font-extrabold text-slate-900">${s.name}</span>
             </div>
             <span class="text-[11px] font-bold text-slate-500 shrink-0">${s.time}</span>
           </div>
           <div class="mt-1.5 pl-8">
-            <span class="inline-block px-2 py-0.5 rounded bg-slate-100 text-slate-700 text-[11px] font-bold mb-1">${s.mode}</span>
+            <span style="background:${badgeColor}18;color:${badgeColor};border:1px solid ${badgeColor}40;" class="inline-block px-2 py-0.5 rounded text-[11px] font-extrabold mb-1">${s.mode}</span>
             <p class="text-xs text-slate-600 leading-relaxed">${s.desc}</p>
           </div>
         </div>
-      `).join("");
+      `;
+      }).join("");
 
       // Draw Markers & Polylines on Map
       if (!mapInstance) return;
@@ -1190,21 +1206,9 @@
       const latlngs = [];
       window._currentDayMarkers = [];
 
-      function getModeColor(modeStr) {
-        if (!modeStr) return MODE_COLORS.train;
-        // 1순위: 기차·철도·S반·U반·트램 (파란색)
-        if (/🚆|🚇|🚋|기차|철도|S반|S1|S8|U반|U4|트램|Railjet|EC|교외선/.test(modeStr)) return MODE_COLORS.train;
-        // 2순위: 전용렌트·버스·밴·드라이브 (주황색)
-        if (/🚐|🚌|렌트|버스|셔틀|밴|드라이브|우버|유료도로/.test(modeStr)) return MODE_COLORS.drive;
-        // 3순위: 케이블카·곤돌라·유람선·크루즈 (보라색)
-        if (/🚡|⛴️|곤돌라|케이블카|유람선|크루즈/.test(modeStr)) return MODE_COLORS.cable;
-        // 4순위: 트레킹·도보·산책 (초록색)
-        if (/🥾|🛒|🍽️|🍺|✈️|트레킹|도보|산책/.test(modeStr)) return MODE_COLORS.trek;
-        return MODE_COLORS.train;
-      }
-
       for (let i = 0; i < routeData.stops.length; i++) {
         const s = routeData.stops[i];
+        const pinColor = getModeColor(s.mode);
         latlngs.push(s.coords);
 
         if (i < routeData.stops.length - 1) {
@@ -1235,7 +1239,7 @@
         const size = 32;
         const icon = L.divIcon({
           className: 'custom-pin',
-          html: `<div style="width:${size}px;height:${size}px;border-radius:9999px;background:${s.color};color:#fff;font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center;border:3px solid #fff;box-shadow:0 4px 10px rgba(0,0,0,0.35);">${s.num}</div>`,
+          html: `<div style="width:${size}px;height:${size}px;border-radius:9999px;background:${pinColor};color:#fff;font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center;border:3px solid #fff;box-shadow:0 4px 10px rgba(0,0,0,0.35);">${s.num}</div>`,
           iconSize: [size, size],
           iconAnchor: [size / 2, size / 2]
         });
@@ -1243,9 +1247,9 @@
         const marker = L.marker(s.coords, { icon }).addTo(routeLayerGroup);
         marker.bindPopup(`
           <div style="font-family:Pretendard,sans-serif;min-width:210px;">
-            <div style="font-size:11px;font-weight:700;color:#2563eb;">${routeData.badge} · 경유지 #${s.num} (${s.time})</div>
+            <div style="font-size:11px;font-weight:700;color:${pinColor};">${routeData.badge} · 경유지 #${s.num} (${s.time})</div>
             <div style="font-size:14px;font-weight:800;color:#0f172a;margin-top:2px;">${s.name}</div>
-            <div style="font-size:11px;font-weight:700;color:#059669;margin-top:3px;">${s.mode}</div>
+            <div style="font-size:11px;font-weight:800;color:${pinColor};margin-top:3px;">${s.mode}</div>
             <div style="font-size:12px;color:#475569;margin-top:4px;line-height:1.4;">${s.desc}</div>
           </div>
         `);
