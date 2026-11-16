@@ -1,0 +1,58 @@
+{
+  "votes": {
+    "budget": {
+      "1800": [
+        "Jacky"
+      ],
+      "1600": []
+    },
+    "flight": {
+      "cost_effective": [],
+      "direct_lh": [
+        "Jacky"
+      ],
+      "direct_kr": []
+    },
+    "dolomites_transport": {
+      "van_9": [
+        "Jacky"
+      ],
+      "two_cars": [],
+      "public": []
+    },
+    "munich_dinner": {
+      "augustiner": [
+        "Jacky"
+      ],
+      "spatenhaus": []
+    },
+    "dolomites_dinner": {
+      "tubladel": [
+        "Jacky"
+      ],
+      "mauriz": []
+    },
+    "vienna_dinner": {
+      "plachutta": [
+        "Jacky"
+      ],
+      "figlmuller": []
+    },
+    "prague_dinner": {
+      "lokal": [
+        "Jacky"
+      ],
+      "kantyna": []
+    }
+  },
+  "comments": [
+    {
+      "id": 1,
+      "author": "Jacky",
+      "target": "전체 일정",
+      "rating": "👍 좋아요",
+      "text": "2027년 10월 유럽 동창 여행 초안입니다! 각 일차별 일정과 맛집·예산 보시고 자유롭게 의견 남겨주세요.",
+      "createdAt": "2026-11-09 22:45"
+    }
+  ]
+}
