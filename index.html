@@ -96,6 +96,7 @@
       <div class="flex flex-wrap items-center gap-2 text-xs">
         <a href="#map-section" class="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 font-medium">🗺️ 동선 지도</a>
         <a href="#flight-section" class="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 font-medium">✈️ 항공·합류</a>
+        <a href="#alps-compare-section" class="px-3 py-1.5 rounded-lg bg-emerald-50 text-emerald-800 border border-emerald-200 hover:bg-emerald-100 font-bold">🏔️ 알프스 대안 비교</a>
         <a href="#schedule-section" class="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 font-medium">📅 14일 일정</a>
         <a href="#places-section" class="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 font-medium">🍽️ 맛집·마트·숙소</a>
         <a href="#budget-section" class="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 font-medium">💰 예산 시뮬레이터</a>
@@ -300,6 +301,95 @@
         </div>
         <div class="p-3 rounded-xl bg-blue-50 border border-blue-200 text-blue-900">
           💡 <b>옵션 B(루프트한자 직항) 선택 시:</b> 싱가포르 친구가 토요일 아침에 먼저 도착해 체크인·휴식 후, 저녁 7시경 도착하는 한국팀 4명을 맞이합니다. (뮌헨 중앙역 지하 EDEKA 마트는 밤 11시·일요일도 영업해 저녁 도착 후 장보기 가능!)
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 2.5: Alps Course Comparison (Dolomites vs Hohe Tauern National Park) -->
+    <section id="alps-compare-section" class="bg-white rounded-2xl shadow-sm border-2 border-emerald-500/40 p-6 space-y-6">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 pb-4 border-b border-slate-200">
+        <div>
+          <span class="inline-block px-2.5 py-0.5 rounded-full text-xs font-extrabold bg-emerald-100 text-emerald-800 mb-1.5">🏔️ D4~D8 (4박 5일) 알프스 핵심 거점 대안 비교</span>
+          <h2 class="text-xl font-extrabold text-slate-900">🇮🇹 [기존안] 이탈리아 돌로미티 vs 🇦🇹 [대안] 오스트리아 호에 타우에른 국립공원</h2>
+          <p class="text-xs text-slate-600 mt-1">10월 중순의 기차 이동 시간, 시설 운영 안정성, 예산 절감 효과를 비교해 보고 하단 투표 보드에서 선택해 주세요!</p>
+        </div>
+        <a href="#feedback-section" class="shrink-0 px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold shadow transition">
+          🗳️ 알프스 코스 투표하러 가기
+        </a>
+      </div>
+
+      <!-- Comparison Table -->
+      <div class="overflow-x-auto">
+        <table class="w-full text-xs sm:text-sm text-left border-collapse">
+          <thead>
+            <tr class="bg-slate-900 text-white text-xs uppercase">
+              <th class="py-3 px-4 rounded-tl-xl">비교 항목</th>
+              <th class="py-3 px-4 bg-emerald-900/90">🇮🇹 기존안: 이탈리아 돌로미티 (오르티세이 4박)</th>
+              <th class="py-3 px-4 bg-blue-900/90">🇦🇹 대안: 호에 타우에른 국립공원 (첼암제·카프룬 4박)</th>
+              <th class="py-3 px-4 rounded-tr-xl">비교 우위</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-200 text-xs">
+            <tr>
+              <td class="py-3 px-4 font-extrabold text-slate-900 bg-slate-50">🚆 도시간 기차 이동 시간<br/><span class="text-[11px] font-normal text-slate-500">(뮌헨 → 알프스 → 빈)</span></td>
+              <td class="py-3 px-4">• 뮌헨→볼차노: <b>4시간</b><br/>• 볼차노→빈(D8): <b>7시간 15분 (총 11시간 15분)</b></td>
+              <td class="py-3 px-4 bg-blue-50/40">• 뮌헨→첼암제: <b>2시간 40분</b><br/>• 첼암제→빈(D8): <b>직통 4시간 20분 (총 7시간)</b></td>
+              <td class="py-3 px-4 font-bold text-blue-700">🏆 호에 타우에른 압승<br/><span class="text-[11px] font-normal">(기차 이동 4시간 15분 단축!)</span></td>
+            </tr>
+            <tr>
+              <td class="py-3 px-4 font-extrabold text-slate-900 bg-slate-50">🏔️ 자연풍경 & 트레킹 매력</td>
+              <td class="py-3 px-4">뾰족하게 솟은 <b>수직 백운암 기암괴석</b>과 고원 초원<br/>(알페 디 시우시 · 세체다 · 트레 치메 · 브라이에스 호수)</td>
+              <td class="py-3 px-4 bg-blue-50/40"><b>3,798m 만년설 빙하 + 유럽 최대 크리믈 폭포 + 호수 + 노천온천</b><br/>(그로스글로크너 빙하길 · 크리믈 폭포 · 키츠슈타인호른 3,029m)</td>
+              <td class="py-3 px-4 font-bold text-slate-700">⚖️ 취향 선택<br/><span class="text-[11px] font-normal">(기암절벽 vs 만년설·폭포·온천)</span></td>
+            </tr>
+            <tr>
+              <td class="py-3 px-4 font-extrabold text-slate-900 bg-slate-50">🍂 10월 중순(10/12~16)<br/>운영 안정성 & 악천후 대안</td>
+              <td class="py-3 px-4">• 주요 곤돌라(시우시·세체다) 정상 운행<br/>• ⚠️ <b>트레 치메 중간 산장(로카텔리) 폐쇄</b> (도시락 필수)<br/>• 마을 식당 일부 비수기 휴무</td>
+              <td class="py-3 px-4 bg-blue-50/40">• <b>국립공원 썸머카드 10/31까지 100% 정상 운영!</b><br/>• 크리믈 폭포, 3,029m 빙하 케이블카 정상 운영<br/>• 비·눈 오면 <b>카프룬 타우에른 노천 온천</b>에서 힐링 가능</td>
+              <td class="py-3 px-4 font-bold text-blue-700">🏆 호에 타우에른 우세<br/><span class="text-[11px] font-normal">(전천후 온천·산장 영업 안정적)</span></td>
+            </tr>
+            <tr>
+              <td class="py-3 px-4 font-extrabold text-slate-900 bg-slate-50">💰 예산 절감 효과</td>
+              <td class="py-3 px-4">9인승 밴 렌트(€800) + 케이블카 개별 발권(€600)</td>
+              <td class="py-3 px-4 bg-blue-50/40">제휴 숙소 숙박 시 <b>‘썸머카드’ 무료 제공</b> → 케이블카·폭포·유람선 무료 혜택으로 <b>약 80~110만원 절감!</b></td>
+              <td class="py-3 px-4 font-bold text-blue-700">🏆 호에 타우에른 압승<br/><span class="text-[11px] font-normal">(1,600만원 이내 자동 달성)</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 4-Night 5-Day Alternative Schedule Cards for Hohe Tauern -->
+      <div class="bg-blue-50/50 border border-blue-200 rounded-2xl p-5 space-y-4">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <h3 class="text-base font-extrabold text-blue-950">🇦🇹 [대안 선택 시] 호에 타우에른 국립공원 4박 5일 (D4~D8) 상세 일정표</h3>
+          <span class="text-xs font-bold text-blue-700 bg-white px-3 py-1 rounded-full border border-blue-200">거점: 첼암제(Zell am See) 또는 카프룬(Kaprun) 별채 4박</span>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-3 text-xs">
+          <div class="bg-white rounded-xl p-3.5 border border-blue-100 shadow-sm">
+            <div class="font-extrabold text-blue-800">D4 · 10/12 (화)</div>
+            <div class="font-bold text-slate-900 mt-0.5">첼암제 입성 & 첼 호수 유람선</div>
+            <p class="text-slate-600 mt-1.5 leading-relaxed">• 뮌헨→첼암제 기차 2시간 40분<br/>• 9인승 밴 픽업 & 마트 장보기<br/>• 에메랄드빛 첼 호수 유람선(무료 패스) & 호반 둘레길 4km 산책</p>
+          </div>
+          <div class="bg-white rounded-xl p-3.5 border border-blue-100 shadow-sm">
+            <div class="font-extrabold text-blue-800">D5 · 10/13 (수) ⭐</div>
+            <div class="font-bold text-slate-900 mt-0.5">그로스글로크너 & 파스테르체 빙하</div>
+            <p class="text-slate-600 mt-1.5 leading-relaxed">• 유럽 최고 파노라마 ‘그로스글로크너 고산도로(2,571m)’ 드라이브<br/>• 오스트리아 최고봉(3,798m) 정면 <b>파스테르체 빙하 트레일(6km)</b><br/>• 저녁: 별채 바비큐 파티</p>
+          </div>
+          <div class="bg-white rounded-xl p-3.5 border border-blue-100 shadow-sm">
+            <div class="font-extrabold text-blue-800">D6 · 10/14 (목) ⭐</div>
+            <div class="font-bold text-slate-900 mt-0.5">크리믈 대폭포 트레킹 & 노천온천</div>
+            <p class="text-slate-600 mt-1.5 leading-relaxed">• 유럽 최대 낙차(380m) <b>크리믈 3단 폭포 전나무 숲길 트레킹(8km, 3시간)</b><br/>• 오후: 카프룬 <b>타우에른 스파(Tauern Spa)</b>에서 만년설 보며 노천온천 힐링</p>
+          </div>
+          <div class="bg-white rounded-xl p-3.5 border border-blue-100 shadow-sm">
+            <div class="font-extrabold text-blue-800">D7 · 10/15 (금)</div>
+            <div class="font-bold text-slate-900 mt-0.5">키츠슈타인호른 3,029m & 맛집</div>
+            <p class="text-slate-600 mt-1.5 leading-relaxed">• 3단 케이블카로 해발 3,029m 만년설 전망대(Top of Salzburg) 등정<br/>• 지그문트 툰 협곡 & 클람제 호수 산책(3.5km)<br/>• 저녁: 오스트리아 정통 스테이크·사슴요리 맛집(Kupferkessel)</p>
+          </div>
+          <div class="bg-white rounded-xl p-3.5 border border-blue-100 shadow-sm">
+            <div class="font-extrabold text-blue-800">D8 · 10/16 (토)</div>
+            <div class="font-bold text-slate-900 mt-0.5">빈 직통 기차 (3시간 단축!)</div>
+            <p class="text-slate-600 mt-1.5 leading-relaxed">• 첼암제 역 렌트 반납<br/>• 첼암제(10:12) → 빈 중앙역(14:30) <b>4시간 20분 만에 도착!</b><br/>• 오후 3시부터 빈 시내 산책 및 여유로운 주말 장보기</p>
+          </div>
         </div>
       </div>
     </section>
@@ -825,8 +915,16 @@
 
     const POLL_CONFIG = [
       {
+        topic: "alps_region",
+        title: "1. D4~D8(4박) 알프스 핵심 거점 선택 ⭐",
+        options: [
+          { key: "dolomites", label: "🇮🇹 기존안: 이탈리아 돌로미티 (세체다·트레 치메 기암절벽)" },
+          { key: "hohe_tauern", label: "🇦🇹 대안: 오스트리아 호에 타우에른 국립공원 (그로스글로크너 빙하·크리믈 폭포·노천온천 · 기차 4시간 단축)" }
+        ]
+      },
+      {
         topic: "budget",
-        title: "1. 현지 예산 규모 (5인 합계, 항공 별도)",
+        title: "2. 현지 예산 규모 (5인 합계, 항공 별도)",
         options: [
           { key: "1800", label: "여유 있게 1,800만원 (1인 360만 · 예비비 포함)" },
           { key: "1600", label: "절감 옵션 적용해 1,600만원 이내 (1인 320만)" }
@@ -834,7 +932,7 @@
       },
       {
         topic: "flight",
-        title: "2. 한국팀 항공권 선호 옵션",
+        title: "3. 한국팀 항공권 선호 옵션",
         options: [
           { key: "cost_effective", label: "가성비 1회 경유 + 토요일 오전 동시 합류 (터키/카타르 등)" },
           { key: "direct_lh", label: "가는 편 직항 우선 (루프트한자 뮌헨 직항)" },
@@ -843,7 +941,7 @@
       },
       {
         topic: "dolomites_transport",
-        title: "3. 돌로미티 4일 이동 수단",
+        title: "4. 알프스 4일 이동 수단",
         options: [
           { key: "van_9", label: "9인승 밴 1대 렌트 (5인 함께 이동 + 넉넉한 짐칸)" },
           { key: "two_cars", label: "중형 왜건/SUV 2대로 나누어 렌트 (운전·주차 편리)" },
@@ -852,7 +950,7 @@
       },
       {
         topic: "munich_dinner",
-        title: "4. 뮌헨 맛집 디너 (D3)",
+        title: "5. 뮌헨 맛집 디너 (D3)",
         options: [
           { key: "augustiner", label: "아우구스티너 켈러 (오크통 생맥주 + 정통 대형 비어홀)" },
           { key: "spatenhaus", label: "슈파텐하우스 (오페라 앞 격식 있고 조용한 전통 식당)" }
@@ -860,7 +958,7 @@
       },
       {
         topic: "vienna_dinner",
-        title: "5. 빈 맛집 디너 (D10)",
+        title: "6. 빈 맛집 디너 (D10)",
         options: [
           { key: "plachutta", label: "플라후타 본점 (소고기 수육 타펠슈피츠 + 슈니첼)" },
           { key: "figlmuller", label: "피글뮐러 (120년 전통 대형 슈니첼 전문점)" }
@@ -868,7 +966,7 @@
       },
       {
         topic: "prague_dinner",
-        title: "6. 프라하 고별 만찬 (D13)",
+        title: "7. 프라하 고별 만찬 (D13)",
         options: [
           { key: "lokal", label: "로칼 들로우하 (비살균 탱크 필스너 생맥주 + 꼴레뇨·스비치코바)" },
           { key: "kantyna", label: "칸티나 / 우 플레쿠 (정육 드라이에이징 스테이크 또는 1499년 흑맥주 양조장)" }
@@ -1515,6 +1613,7 @@
 
     const DEFAULT_FEEDBACK_STATE = {
       votes: {
+        alps_region: { dolomites: ["Jacky"], hohe_tauern: [] },
         budget: { "1800": ["Jacky"], "1600": [] },
         flight: { cost_effective: ["Jacky"], direct_lh: [], direct_kr: [] },
         dolomites_transport: { van_9: ["Jacky"], two_cars: [], public: [] },
