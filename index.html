@@ -310,9 +310,9 @@
     <section id="alps-compare-section" class="bg-white rounded-2xl shadow-sm border-2 border-emerald-500/40 p-6 space-y-6">
       <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 pb-4 border-b border-slate-200">
         <div>
-          <span class="inline-block px-2.5 py-0.5 rounded-full text-xs font-extrabold bg-emerald-100 text-emerald-800 mb-1.5">🏔️ D4~D8 (4박 5일) 알프스 핵심 거점 대안 비교</span>
-          <h2 class="text-xl font-extrabold text-slate-900">🇮🇹 [기존안] 이탈리아 돌로미티 vs 🇦🇹 [대안] 오스트리아 호에 타우에른 국립공원</h2>
-          <p class="text-xs text-slate-600 mt-1">10월 중순의 기차 이동 시간, 시설 운영 안정성, 예산 절감 효과를 비교해 보고 하단 투표 보드에서 선택해 주세요!</p>
+          <span class="inline-block px-2.5 py-0.5 rounded-full text-xs font-extrabold bg-emerald-100 text-emerald-800 mb-1.5">🏔️ D4~D8 (4박 5일) 알프스 핵심 거점 3개 지역 비교</span>
+          <h2 class="text-xl font-extrabold text-slate-900">🇮🇹 [기존안] 돌로미티 vs 🇦🇹 [대안1] 호에 타우에른 vs 🇦🇹 [대안2] 슐라트밍</h2>
+          <p class="text-xs text-slate-600 mt-1">10월 중순의 이동 시간, 시설 운영 안정성, 5인 실비 예산을 한눈에 비교해 보고 하단 투표 보드에서 선택해 주세요!</p>
         </div>
         <a href="#feedback-section" class="shrink-0 px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold shadow transition">
           🗳️ 알프스 코스 투표하러 가기
@@ -324,36 +324,41 @@
         <table class="w-full text-xs sm:text-sm text-left border-collapse">
           <thead>
             <tr class="bg-slate-900 text-white text-xs uppercase">
-              <th class="py-3 px-4 rounded-tl-xl">비교 항목</th>
-              <th class="py-3 px-4 bg-emerald-900/90">🇮🇹 기존안: 이탈리아 돌로미티 (오르티세이 4박)</th>
-              <th class="py-3 px-4 bg-blue-900/90">🇦🇹 대안: 호에 타우에른 국립공원 (첼암제·카프룬 4박)</th>
-              <th class="py-3 px-4 rounded-tr-xl">비교 우위</th>
+              <th class="py-3 px-3 rounded-tl-xl">비교 항목</th>
+              <th class="py-3 px-3 bg-emerald-900/90">🇮🇹 기존안: 돌로미티<br/><span class="font-normal text-[10px] text-emerald-200">(오르티세이 4박)</span></th>
+              <th class="py-3 px-3 bg-blue-900/90">🇦🇹 대안1: 호에 타우에른<br/><span class="font-normal text-[10px] text-blue-200">(첼암제·피젠도르프 4박)</span></th>
+              <th class="py-3 px-3 bg-teal-900/90">🇦🇹 대안2: 슐라트밍<br/><span class="font-normal text-[10px] text-teal-200">(슐라트밍·람자우 4박)</span></th>
+              <th class="py-3 px-3 rounded-tr-xl">핵심 우위</th>
             </tr>
           </thead>
           <tbody class="divide-y divide-slate-200 text-xs">
             <tr>
-              <td class="py-3 px-4 font-extrabold text-slate-900 bg-slate-50">🚆 도시간 기차 이동 시간<br/><span class="text-[11px] font-normal text-slate-500">(뮌헨 → 알프스 → 빈)</span></td>
-              <td class="py-3 px-4">• 뮌헨→볼차노: <b>4시간</b><br/>• 볼차노→빈(D8): <b>7시간 15분 (총 11시간 15분)</b></td>
-              <td class="py-3 px-4 bg-blue-50/40">• 뮌헨→첼암제: <b>2시간 40분</b><br/>• 첼암제→빈(D8): <b>직통 4시간 20분 (총 7시간)</b></td>
-              <td class="py-3 px-4 font-bold text-blue-700">🏆 호에 타우에른 압승<br/><span class="text-[11px] font-normal">(기차 이동 4시간 15분 단축!)</span></td>
+              <td class="py-3 px-3 font-extrabold text-slate-900 bg-slate-50">🚆 이동 시간<br/><span class="text-[11px] font-normal text-slate-500">(뮌헨 → 알프스 → 빈)</span></td>
+              <td class="py-3 px-3">• 뮌헨→볼차노: <b>4시간</b><br/>• 볼차노→빈(D8): <b>7시간 15분</b><br/><b>(총 11시간 15분)</b></td>
+              <td class="py-3 px-3 bg-blue-50/40">• 뮌헨→첼암제: <b>2시간 40분</b><br/>• 첼암제→빈(D8): <b>4시간 20분</b><br/><b>(총 7시간)</b></td>
+              <td class="py-3 px-3 bg-teal-50/40">• 뮌헨→슐라트밍: <b>2~2.5시간</b><br/>• 슐라트밍→빈(D8): <b>3~3.5시간</b><br/><b>(총 5.5~6시간)</b></td>
+              <td class="py-3 px-3 font-bold text-teal-700">🏆 슐라트밍 최단 동선<br/><span class="text-[11px] font-normal">(돌로미티 대비 5시간+ 단축)</span></td>
             </tr>
             <tr>
-              <td class="py-3 px-4 font-extrabold text-slate-900 bg-slate-50">🏔️ 자연풍경 & 트레킹 매력</td>
-              <td class="py-3 px-4">뾰족하게 솟은 <b>수직 백운암 기암괴석</b>과 고원 초원<br/>(알페 디 시우시 · 세체다 · 트레 치메 · 브라이에스 호수)</td>
-              <td class="py-3 px-4 bg-blue-50/40"><b>3,798m 만년설 빙하 + 유럽 최대 크리믈 폭포 + 호수 + 노천온천</b><br/>(그로스글로크너 빙하길 · 크리믈 폭포 · 키츠슈타인호른 3,029m)</td>
-              <td class="py-3 px-4 font-bold text-slate-700">⚖️ 취향 선택<br/><span class="text-[11px] font-normal">(기암절벽 vs 만년설·폭포·온천)</span></td>
+              <td class="py-3 px-3 font-extrabold text-slate-900 bg-slate-50">🏔️ 자연풍경 &amp; 핵심 매력</td>
+              <td class="py-3 px-3">뾰족하게 솟은 <b>수직 백운암 기암괴석</b>과 고원 초원<br/>(세체다 · 시우시 · 트레 치메 · 브라이에스 호수)</td>
+              <td class="py-3 px-3 bg-blue-50/40"><b>3,798m 만년설 빙하 + 웅장한 고산 드라이브 + 폭포·온천</b><br/>(그로스글로크너 2,571m · 크리믈 폭포 · 타우에른 스파)</td>
+              <td class="py-3 px-3 bg-teal-50/40"><b>2,700m 빙하 전망대 + 단풍 호수·계곡 + 할슈타트(40분)</b><br/>(다흐슈타인 스카이워크 · 보덴제 · 리자흐 폭포)</td>
+              <td class="py-3 px-3 font-bold text-slate-700">⚖️ 취향 선택<br/><span class="text-[11px] font-normal">(기암 vs 드라이브 vs 빙하·단풍)</span></td>
             </tr>
             <tr>
-              <td class="py-3 px-4 font-extrabold text-slate-900 bg-slate-50">🍂 10월 중순(10/12~16)<br/>운영 안정성 & 악천후 대안</td>
-              <td class="py-3 px-4">• 주요 곤돌라(시우시·세체다) 정상 운행<br/>• ⚠️ <b>트레 치메 중간 산장(로카텔리) 폐쇄</b> (도시락 필수)<br/>• 마을 식당 일부 비수기 휴무</td>
-              <td class="py-3 px-4 bg-blue-50/40">• <b>9인승 밴 기준 무료/저가 대자연 코스 풍부!</b><br/>• 크리믈 폭포, 3,029m 빙하 케이블카, 협곡 정상 운영<br/>• 비·눈 오면 <b>카프룬 타우에른 노천 온천</b>에서 힐링 가능</td>
-              <td class="py-3 px-4 font-bold text-blue-700">🏆 호에 타우에른 우세<br/><span class="text-[11px] font-normal">(전천후 온천·도로 접근성 우수)</span></td>
+              <td class="py-3 px-3 font-extrabold text-slate-900 bg-slate-50">🍂 10월 중순(10/12~16)<br/>운영 안정성 &amp; 플랜 B</td>
+              <td class="py-3 px-3">• 시우시·세체다 정상 운행<br/>• ⚠️ <b>트레 치메 산장 폐쇄</b><br/>• 마을 식당 일부 비수기 휴무</td>
+              <td class="py-3 px-3 bg-blue-50/40">• <b>9인승 밴 무료/저가 코스 풍부</b><br/>• 크리믈·키츠슈타인호른·협곡 정상 운영<br/>• 악천후 시 <b>타우에른 스파 온천</b></td>
+              <td class="py-3 px-3 bg-teal-50/40">• <b>다흐슈타인·플라나이 운행 + 협곡/호수 단풍 절정</b><br/>• 악천후 시 <b>아드몬트 수도원 도서관 · 온천(Grimming/Amadé)</b></td>
+              <td class="py-3 px-3 font-bold text-emerald-700">🏆 오스트리아 2곳 우세<br/><span class="text-[11px] font-normal">(전천후 실내·온천 대안 풍부)</span></td>
             </tr>
             <tr>
-              <td class="py-3 px-4 font-extrabold text-slate-900 bg-slate-50">💰 예산 절감 효과<br/><span class="text-[11px] font-normal text-slate-500">(썸머카드 없이 실비 기준)</span></td>
-              <td class="py-3 px-4">9인승 밴 렌트(€800) + 케이블카 개별 발권(€600)</td>
-              <td class="py-3 px-4 bg-blue-50/40"><b>외곽 가성비 별채(피젠도르프 등 220만원대) + 차량 이동</b><br/>• 케이블카 1회 포함 시 입장료 <b>총 약 60만원</b> (미이용 시 <b>19만원</b>!)<br/>• 돌로미티 대비 <b>약 70~110만원 절감!</b></td>
-              <td class="py-3 px-4 font-bold text-blue-700">🏆 호에 타우에른 압승<br/><span class="text-[11px] font-normal">(1,600만원 이내 자동 달성)</span></td>
+              <td class="py-3 px-3 font-extrabold text-slate-900 bg-slate-50">💰 4박 5일 핵심 비용<br/><span class="text-[11px] font-normal text-slate-500">(5인 숙박+입장료 실비)</span></td>
+              <td class="py-3 px-3">숙박 ~310~390만 + 케이블카 €600(~93만) + 톨·유류비 최대<br/><b>→ 약 420~500만 원+</b></td>
+              <td class="py-3 px-3 bg-blue-50/40">외곽 별채 205~270만 + 입장료 ~60만(미이용 19만)<br/><b>→ 약 275~340만 원</b><br/><span class="text-[11px] text-blue-700">(카드 없이 최저가)</span></td>
+              <td class="py-3 px-3 bg-teal-50/40">제휴 숙소 230~330만 + 가을카드 무료(다흐슈타인·플라나이) + 실비 ~10만<br/><b>→ 약 250~350만 원</b></td>
+              <td class="py-3 px-3 font-bold text-blue-700">🏆 호에타우에른 / 슐라트밍<br/><span class="text-[11px] font-normal">(돌로미티 대비 100만+ 절감)</span></td>
             </tr>
           </tbody>
         </table>
@@ -444,6 +449,59 @@
                 </tr>
               </tbody>
             </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4-Night 5-Day Alternative 2 Schedule & Stay Card for Schladming -->
+      <div class="bg-teal-50/50 border border-teal-200 rounded-2xl p-5 space-y-4">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <h3 class="text-base font-extrabold text-teal-950">🇦🇹 [대안2 선택 시] 슐라트밍-다흐슈타인 4박 5일 (D4~D8) — 최단 동선 · 가을카드 활용형</h3>
+          <span class="text-xs font-bold text-teal-800 bg-white px-3 py-1 rounded-full border border-teal-200">추천 거점: 슐라트밍 시내 외곽 / 람자우(Ramsau) 중심가 (Sommercard 포함 숙소)</span>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-3 text-xs">
+          <div class="bg-white rounded-xl p-3.5 border border-teal-100 shadow-sm">
+            <div class="font-extrabold text-teal-800">D4 · 10/12 (화)</div>
+            <div class="font-bold text-slate-900 mt-0.5">최단 이동 &amp; 슐라트밍 입성</div>
+            <p class="text-slate-600 mt-1.5 leading-relaxed">• 뮌헨→슐라트밍 약 2~2.5시간 (가는 길 잘츠부르크 점심)<br/>• 숙소 체크인 &amp; 마트 장보기 (가을카드 디지털 발급)</p>
+          </div>
+          <div class="bg-white rounded-xl p-3.5 border border-teal-100 shadow-sm">
+            <div class="font-extrabold text-teal-800">D5 · 10/13 (수) ⭐</div>
+            <div class="font-bold text-slate-900 mt-0.5">다흐슈타인 빙하 &amp; 협곡</div>
+            <p class="text-slate-600 mt-1.5 leading-relaxed">• <b>다흐슈타인 빙하(2,700m)</b> 케이블카·스카이워크·얼음궁전 (가을카드 1회 무료, 사전예약 필수)<br/>• 오후: <b>질버카르클람(Silberkarklamm)</b> 협곡 산책</p>
+          </div>
+          <div class="bg-white rounded-xl p-3.5 border border-teal-100 shadow-sm">
+            <div class="font-extrabold text-teal-800">D6 · 10/14 (목) ⭐</div>
+            <div class="font-bold text-slate-900 mt-0.5">단풍 호수 &amp; 리자흐 폭포</div>
+            <p class="text-slate-600 mt-1.5 leading-relaxed">• <b>슈타이어리셔 보덴제</b> 호수 단풍 산책<br/>• <b>리자흐 폭포(140m)</b> &amp; 출렁다리 트레킹<br/>• 악천후 시 온천(Grimming / Amadé) 휴식</p>
+          </div>
+          <div class="bg-white rounded-xl p-3.5 border border-teal-100 shadow-sm">
+            <div class="font-extrabold text-teal-800">D7 · 10/15 (금)</div>
+            <div class="font-bold text-slate-900 mt-0.5">할슈타트 반나절 &amp; 플라나이</div>
+            <p class="text-slate-600 mt-1.5 leading-relaxed">• <b>할슈타트</b> 드라이브(차 40분) 후 복귀<br/>• <b>플라나이 곤돌라</b> 무료 탑승 또는 람자우 초원 산책</p>
+          </div>
+          <div class="bg-white rounded-xl p-3.5 border border-teal-100 shadow-sm">
+            <div class="font-extrabold text-teal-800">D8 · 10/16 (토)</div>
+            <div class="font-bold text-slate-900 mt-0.5">빈 이동 (약 3~3.5시간)</div>
+            <p class="text-slate-600 mt-1.5 leading-relaxed">• 체크아웃 후 빈으로 여유롭게 이동<br/>• 중간에 <b>아드몬트 수도원 도서관</b>(차 50분) 경유 가능</p>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-xl border border-teal-100 p-4 text-xs space-y-2">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <span class="font-extrabold text-teal-950">🏠 슐라트밍 확인 숙소 후보 &amp; 위치 가이드</span>
+            <span class="text-[11px] font-bold text-teal-700">💡 10월은 ‘가을카드(Herbstcard)’ 기간으로 11/1경까지 Sommercard 혜택 동일 적용</span>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3 pt-1">
+            <div class="p-3 rounded-lg bg-teal-50/50 border border-teal-100">
+              <div class="font-bold text-slate-900">• Premium Chalet Mountain Hideaway <span class="text-amber-600">(★4.93 · 후기 86)</span></div>
+              <p class="text-slate-600 mt-1 leading-relaxed">Haus im Ennstal 해발 1,200m (아스팔트 포장도로 · 주차 3대) · <b>4박 총액 €1,488(약 230만 원)</b> · <b>Sommercard 공식 포함</b> · 전용 사우나 + 6인 장작 온수욕조 + 웨버 BBQ. <span class="text-rose-700 font-semibold">(※ 침실3/더블베드3으로 2인1침대 2방 &amp; 샤워실1+WC2 구조 확인 필요)</span></p>
+              <a href="https://www.airbnb.co.kr/rooms/14913652?adults=5&check_in=2027-10-12&check_out=2027-10-16&guests=5" target="_blank" class="mt-2 inline-block px-2.5 py-1 rounded bg-rose-500 text-white font-bold hover:bg-rose-600">Airbnb 보기 ↗</a>
+            </div>
+            <div class="p-3 rounded-lg bg-slate-50 border border-slate-200">
+              <div class="font-bold text-slate-900">• 9인승 렌터카 기준 최적 숙소 위치 가이드</div>
+              <p class="text-slate-600 mt-1 leading-relaxed"><b>① 슐라트밍 시내 외곽 / 로어모스 하단:</b> B320 간선도로 인접, 마트·식당 5분, 모든 명소 10~25분 방사형 최단 허브.<br/><b>② 람자우(Ramsau):</b> 다흐슈타인·질버카르클람 10분, 가을카드 제휴 숙소 최다 밀집.<br/><i>(※ 반드시 설명란에 ‘Sommercard included’ 명시된 숙소 우선 선택 추천)</i></p>
+            </div>
           </div>
         </div>
       </div>
@@ -1032,7 +1090,8 @@
         title: "1. D4~D8(4박) 알프스 핵심 거점 선택 ⭐",
         options: [
           { key: "dolomites", label: "🇮🇹 기존안: 이탈리아 돌로미티 (세체다·트레 치메 기암절벽)" },
-          { key: "hohe_tauern", label: "🇦🇹 대안: 오스트리아 호에 타우에른 국립공원 (그로스글로크너 빙하·크리믈 폭포·노천온천 · 기차 4시간 단축)" }
+          { key: "hohe_tauern", label: "🇦🇹 대안1: 오스트리아 호에 타우에른 (그로스글로크너·크리믈 폭포·노천온천 · 카드없이 최저가)" },
+          { key: "schladming", label: "🇦🇹 대안2: 오스트리아 슐라트밍 (다흐슈타인 빙하·단풍 호수/폭포·가을카드 혜택 · 최단 동선)" }
         ]
       },
       {
@@ -1726,7 +1785,7 @@
 
     const DEFAULT_FEEDBACK_STATE = {
       votes: {
-        alps_region: { dolomites: ["Jacky"], hohe_tauern: [] },
+        alps_region: { dolomites: ["Jacky"], hohe_tauern: [], schladming: [] },
         budget: { "1800": ["Jacky"], "1600": [] },
         flight: { cost_effective: ["Jacky"], direct_lh: [], direct_kr: [] },
         dolomites_transport: { van_9: ["Jacky"], two_cars: [], public: [] },
