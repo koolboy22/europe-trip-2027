@@ -39,14 +39,14 @@
       </div>
 
       <!-- Single-line Scrollable Nav Pills -->
-      <div class="hidden md:flex items-center gap-1.5 overflow-x-auto no-scrollbar whitespace-nowrap text-xs">
-        <a href="#map-section" class="px-2.5 py-1.5 rounded-lg text-slate-600 hover:bg-slate-100 hover:text-slate-900 font-semibold transition">🗺️ 동선 지도</a>
-        <a href="#flight-section" class="px-2.5 py-1.5 rounded-lg text-slate-600 hover:bg-slate-100 hover:text-slate-900 font-semibold transition">✈️ 항공·합류</a>
-        <a href="#alps-compare-section" class="px-2.5 py-1.5 rounded-lg bg-teal-50 text-teal-800 border border-teal-200 hover:bg-teal-100 font-bold transition">🏔️ 알프스 3개 지역 비교</a>
-        <a href="#schedule-section" class="px-2.5 py-1.5 rounded-lg text-slate-600 hover:bg-slate-100 hover:text-slate-900 font-semibold transition">📅 14일 일정</a>
-        <a href="#places-section" class="px-2.5 py-1.5 rounded-lg text-slate-600 hover:bg-slate-100 hover:text-slate-900 font-semibold transition">🍽️ 맛집·마트</a>
-        <a href="#budget-section" class="px-2.5 py-1.5 rounded-lg text-slate-600 hover:bg-slate-100 hover:text-slate-900 font-semibold transition">💰 예산</a>
-        <a href="#tips-section" class="px-2.5 py-1.5 rounded-lg text-slate-600 hover:bg-slate-100 hover:text-slate-900 font-semibold transition">📚 여행 상식</a>
+      <div class="hidden md:flex items-center gap-1 overflow-x-auto no-scrollbar whitespace-nowrap text-xs">
+        <button type="button" onclick="switchMainTab('map-section')" data-tab="map-section" class="main-nav-btn px-2.5 py-1.5 rounded-lg bg-slate-900 text-white font-bold transition">🗺️ 동선 지도</button>
+        <button type="button" onclick="switchMainTab('alps-compare-section')" data-tab="alps-compare-section" class="main-nav-btn px-2.5 py-1.5 rounded-lg text-teal-800 bg-teal-50 hover:bg-teal-100 font-bold transition">🏔️ 알프스 3개 지역 비교</button>
+        <button type="button" onclick="switchMainTab('schedule-section')" data-tab="schedule-section" class="main-nav-btn px-2.5 py-1.5 rounded-lg text-slate-600 hover:bg-slate-100 font-semibold transition">📅 14일 일정</button>
+        <button type="button" onclick="switchMainTab('places-section')" data-tab="places-section" class="main-nav-btn px-2.5 py-1.5 rounded-lg text-slate-600 hover:bg-slate-100 font-semibold transition">🍽️ 맛집·마트</button>
+        <button type="button" onclick="switchMainTab('flight-section')" data-tab="flight-section" class="main-nav-btn px-2.5 py-1.5 rounded-lg text-slate-600 hover:bg-slate-100 font-semibold transition">✈️ 항공·합류</button>
+        <button type="button" onclick="switchMainTab('budget-section')" data-tab="budget-section" class="main-nav-btn px-2.5 py-1.5 rounded-lg text-slate-600 hover:bg-slate-100 font-semibold transition">💰 예산</button>
+        <button type="button" onclick="switchMainTab('tips-section')" data-tab="tips-section" class="main-nav-btn px-2.5 py-1.5 rounded-lg text-slate-600 hover:bg-slate-100 font-semibold transition">📚 여행 상식</button>
       </div>
 
       <!-- User Selector & Vote Jump -->
@@ -56,20 +56,21 @@
           <input id="current-user" type="text" value="Jacky" placeholder="이름 입력"
                  class="text-xs font-bold text-slate-900 bg-transparent focus:outline-none w-16 sm:w-24" />
         </div>
-        <a href="#feedback-section" class="px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-sm transition whitespace-nowrap">
+        <button type="button" onclick="switchMainTab('feedback-section')" data-tab="feedback-section" class="main-nav-btn px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-sm transition whitespace-nowrap">
           🗳️ 투표 (<span id="comment-count-badge">1</span>)
-        </a>
+        </button>
       </div>
     </div>
     <!-- Mobile Horizontal Nav -->
     <div class="md:hidden border-t border-slate-100 px-4 py-2 flex items-center gap-1.5 overflow-x-auto no-scrollbar whitespace-nowrap text-[11px]">
-      <a href="#map-section" class="px-2.5 py-1 rounded-full bg-slate-100 text-slate-700 font-semibold">🗺️ 지도</a>
-      <a href="#flight-section" class="px-2.5 py-1 rounded-full bg-slate-100 text-slate-700 font-semibold">✈️ 항공</a>
-      <a href="#alps-compare-section" class="px-2.5 py-1 rounded-full bg-teal-50 text-teal-800 border border-teal-200 font-bold">🏔️ 알프스 비교</a>
-      <a href="#schedule-section" class="px-2.5 py-1 rounded-full bg-slate-100 text-slate-700 font-semibold">📅 일정</a>
-      <a href="#places-section" class="px-2.5 py-1 rounded-full bg-slate-100 text-slate-700 font-semibold">🍽️ 맛집·마트</a>
-      <a href="#budget-section" class="px-2.5 py-1 rounded-full bg-slate-100 text-slate-700 font-semibold">💰 예산</a>
-      <a href="#tips-section" class="px-2.5 py-1 rounded-full bg-amber-50 text-amber-800 font-semibold">📚 상식</a>
+      <button type="button" onclick="switchMainTab('map-section')" data-tab="map-section" class="main-nav-btn px-2.5 py-1 rounded-full bg-slate-900 text-white font-bold">🗺️ 지도</button>
+      <button type="button" onclick="switchMainTab('alps-compare-section')" data-tab="alps-compare-section" class="main-nav-btn px-2.5 py-1 rounded-full bg-teal-50 text-teal-800 font-bold">🏔️ 알프스 비교</button>
+      <button type="button" onclick="switchMainTab('schedule-section')" data-tab="schedule-section" class="main-nav-btn px-2.5 py-1 rounded-full bg-slate-100 text-slate-700 font-semibold">📅 일정</button>
+      <button type="button" onclick="switchMainTab('places-section')" data-tab="places-section" class="main-nav-btn px-2.5 py-1 rounded-full bg-slate-100 text-slate-700 font-semibold">🍽️ 맛집·마트</button>
+      <button type="button" onclick="switchMainTab('flight-section')" data-tab="flight-section" class="main-nav-btn px-2.5 py-1 rounded-full bg-slate-100 text-slate-700 font-semibold">✈️ 항공</button>
+      <button type="button" onclick="switchMainTab('budget-section')" data-tab="budget-section" class="main-nav-btn px-2.5 py-1 rounded-full bg-slate-100 text-slate-700 font-semibold">💰 예산</button>
+      <button type="button" onclick="switchMainTab('tips-section')" data-tab="tips-section" class="main-nav-btn px-2.5 py-1 rounded-full bg-slate-100 text-slate-700 font-semibold">📚 상식</button>
+      <button type="button" onclick="switchMainTab('feedback-section')" data-tab="feedback-section" class="main-nav-btn px-2.5 py-1 rounded-full bg-blue-50 text-blue-700 font-bold">🗳️ 투표</button>
     </div>
   </nav>
 
@@ -95,10 +96,10 @@
             <span>📓 Notion 마스터 문서</span>
             <svg class="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
           </a>
-          <a href="#feedback-section"
+          <button type="button" onclick="switchMainTab('feedback-section')"
              class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-blue-600 text-white font-bold text-xs shadow-sm hover:bg-blue-700 transition">
             <span>🗳️ 참석자 투표 &amp; 의견 남기기</span>
-          </a>
+          </button>
         </div>
       </div>
 
@@ -132,7 +133,7 @@
   <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
 
     <!-- Section 1: Interactive Day-by-Day Google Maps Route Explorer -->
-    <section id="map-section" class="bg-white rounded-3xl shadow-sm border border-slate-200 p-5 sm:p-6 space-y-5">
+    <section id="map-section" class="main-tab-section bg-white rounded-3xl shadow-sm border border-slate-200 p-5 sm:p-6 space-y-5">
       <!-- Top Bar: Title & Map Style Switcher -->
       <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-3 pb-4 border-b border-slate-200">
         <div>
@@ -255,7 +256,7 @@
     </section>
 
     <!-- Section 2: Flight & Meetup Plan (Korea 4 + Singapore 1) -->
-    <section id="flight-section" class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+    <section id="flight-section" class="main-tab-section hidden bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
       <div class="flex flex-col md:flex-row md:items-center justify-between gap-2 mb-5">
         <div>
           <h2 class="text-xl font-bold text-slate-900">✈️ 한국(4명) + 싱가포르(1명) 항공권 & 합류 옵션 비교</h2>
@@ -333,7 +334,7 @@
     </section>
 
     <!-- Section 2.5: Alps Course Comparison (Dolomites vs Hohe Tauern National Park) -->
-    <section id="alps-compare-section" class="alpine-card rounded-2xl p-6 space-y-6">
+    <section id="alps-compare-section" class="main-tab-section hidden alpine-card rounded-2xl p-6 space-y-6">
       <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 pb-4 border-b border-slate-200">
         <div>
           <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full font-mono-tech text-[11px] font-semibold bg-teal-50 text-teal-800 border border-teal-200 mb-1.5">
@@ -342,7 +343,7 @@
           <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">알프스 3개 거점 후보 비교 &amp; 동창 선택</h2>
           <p class="text-xs text-slate-500 mt-1">10월 중순의 이동 시간, 시설 운영 안정성, 5인 실비 예산을 카드별로 비교한 뒤 하단 보드에서 투표해 주세요.</p>
         </div>
-        <a href="#feedback-section" class="shrink-0 px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-sm transition">
+        <a href="#feedback-section" onclick="switchMainTab('feedback-section'); return false;" class="shrink-0 px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-sm transition">
           🗳️ 알프스 코스 투표하러 가기
         </a>
       </div>
@@ -380,7 +381,7 @@
           </div>
           <div class="pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
             <span class="text-slate-500 font-semibold">압도적 기암절벽 뷰</span>
-            <a href="#feedback-section" class="px-3 py-1.5 rounded-lg bg-emerald-50 text-emerald-700 font-bold hover:bg-emerald-100 transition">투표하기 →</a>
+            <a href="#feedback-section" onclick="switchMainTab('feedback-section'); return false;" class="px-3 py-1.5 rounded-lg bg-emerald-50 text-emerald-700 font-bold hover:bg-emerald-100 transition">투표하기 →</a>
           </div>
         </div>
 
@@ -415,7 +416,7 @@
           </div>
           <div class="pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
             <span class="text-blue-700 font-bold">카드 없이 가성비 1위</span>
-            <a href="#feedback-section" class="px-3 py-1.5 rounded-lg bg-blue-50 text-blue-700 font-bold hover:bg-blue-100 transition">투표하기 →</a>
+            <a href="#feedback-section" onclick="switchMainTab('feedback-section'); return false;" class="px-3 py-1.5 rounded-lg bg-blue-50 text-blue-700 font-bold hover:bg-blue-100 transition">투표하기 →</a>
           </div>
         </div>
 
@@ -450,7 +451,7 @@
           </div>
           <div class="pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
             <span class="text-teal-700 font-bold">동선·편의·가을혜택 균형</span>
-            <a href="#feedback-section" class="px-3 py-1.5 rounded-lg bg-teal-600 text-white font-bold hover:bg-teal-700 transition">투표하기 →</a>
+            <a href="#feedback-section" onclick="switchMainTab('feedback-section'); return false;" class="px-3 py-1.5 rounded-lg bg-teal-600 text-white font-bold hover:bg-teal-700 transition">투표하기 →</a>
           </div>
         </div>
       </div>
@@ -604,7 +605,7 @@
     </section>
 
     <!-- Section 3: 14-Day Interactive Timeline -->
-    <section id="schedule-section" class="space-y-5">
+    <section id="schedule-section" class="main-tab-section hidden space-y-5">
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
           <h2 class="text-xl font-bold text-slate-900">📅 13박 14일 일차별 상세 일정</h2>
@@ -623,7 +624,7 @@
     </section>
 
     <!-- Section 4: Curated Places (Restaurants, Supermarkets, Airbnb Zones) -->
-    <section id="places-section" class="space-y-5">
+    <section id="places-section" class="main-tab-section hidden space-y-5">
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
           <h2 class="text-xl font-bold text-slate-900">🍽️ 도시별 맛집 · 🛒 마트 · 🏠 에어비앤비 추천 구역</h2>
@@ -641,7 +642,7 @@
     </section>
 
     <!-- Section 5: Interactive Budget Simulator -->
-    <section id="budget-section" class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+    <section id="budget-section" class="main-tab-section hidden bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
       <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-6 border-b border-slate-200">
         <div>
           <h2 class="text-xl font-bold text-slate-900">💰 5인 예산 시뮬레이터 (목표 1,600만원 vs 여유 1,800만원)</h2>
@@ -725,7 +726,7 @@
     </section>
 
     <!-- Section 5.5: Essential Travel Knowledge & Local Etiquette -->
-    <section id="tips-section" class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 space-y-6">
+    <section id="tips-section" class="main-tab-section hidden bg-white rounded-2xl shadow-sm border border-slate-200 p-6 space-y-6">
       <div class="border-b border-slate-200 pb-4">
         <span class="inline-block px-2.5 py-0.5 rounded-full text-xs font-extrabold bg-amber-100 text-amber-900 mb-1.5">✈️ 50대 동창 5인 맞춤형 현장 가이드</span>
         <h2 class="text-xl font-extrabold text-slate-900">📚 출발 전 꼭 알아둘 유럽 여행 필수 상식</h2>
@@ -781,7 +782,7 @@
     </section>
 
     <!-- Section 6: Participant Voting & Live Feedback Board (Alpine Journal Light) -->
-    <section id="feedback-section" class="alpine-card rounded-2xl p-6 sm:p-8 space-y-8">
+    <section id="feedback-section" class="main-tab-section hidden alpine-card rounded-2xl p-6 sm:p-8 space-y-8">
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 pb-5">
         <div>
           <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full font-mono-tech text-[11px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
@@ -2145,6 +2146,7 @@
         select.appendChild(opt);
       }
       select.value = targetLabel;
+      switchMainTab("feedback-section", true);
       document.getElementById("feedback-section").scrollIntoView({ behavior: "smooth" });
       setTimeout(() => document.getElementById("comment-text").focus(), 400);
     }
@@ -2250,6 +2252,53 @@
       alert("단톡방 공유용 요약 텍스트가 클립보드에 복사되었습니다!");
     }
 
+    function switchMainTab(tabId, skipScroll) {
+      document.querySelectorAll(".main-tab-section").forEach(sec => {
+        if (sec.id === tabId) {
+          sec.classList.remove("hidden");
+        } else {
+          sec.classList.add("hidden");
+        }
+      });
+
+      document.querySelectorAll(".main-nav-btn").forEach(btn => {
+        const isActive = btn.dataset.tab === tabId;
+        const isMobile = btn.classList.contains("rounded-full");
+        if (isActive) {
+          btn.className = isMobile
+            ? "main-nav-btn px-2.5 py-1 rounded-full bg-slate-900 text-white font-bold transition"
+            : "main-nav-btn px-2.5 py-1.5 rounded-lg bg-slate-900 text-white font-bold transition whitespace-nowrap";
+        } else {
+          if (btn.dataset.tab === "alps-compare-section") {
+            btn.className = isMobile
+              ? "main-nav-btn px-2.5 py-1 rounded-full bg-teal-50 text-teal-800 font-bold transition"
+              : "main-nav-btn px-2.5 py-1.5 rounded-lg bg-teal-50 text-teal-800 hover:bg-teal-100 font-bold transition whitespace-nowrap";
+          } else if (btn.dataset.tab === "feedback-section") {
+            btn.className = isMobile
+              ? "main-nav-btn px-2.5 py-1 rounded-full bg-blue-50 text-blue-700 font-bold transition"
+              : "main-nav-btn px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-sm transition whitespace-nowrap";
+          } else {
+            btn.className = isMobile
+              ? "main-nav-btn px-2.5 py-1 rounded-full bg-slate-100 text-slate-700 font-semibold transition"
+              : "main-nav-btn px-2.5 py-1.5 rounded-lg text-slate-600 hover:bg-slate-100 font-semibold transition whitespace-nowrap";
+          }
+        }
+      });
+
+      if (tabId === "map-section" && typeof mapInstance !== "undefined" && mapInstance) {
+        setTimeout(() => mapInstance.invalidateSize(), 60);
+      }
+      if (tabId === "budget-section" && typeof budgetChartInstance !== "undefined" && budgetChartInstance) {
+        setTimeout(() => budgetChartInstance.resize(), 60);
+      }
+      if (!skipScroll) {
+        const mainEl = document.querySelector("main");
+        if (mainEl) {
+          window.scrollTo({ top: Math.max(0, mainEl.offsetTop - 72), behavior: "smooth" });
+        }
+      }
+    }
+
     document.getElementById("current-user").addEventListener("input", renderPolls);
 
     window.addEventListener("DOMContentLoaded", () => {
@@ -2258,6 +2307,12 @@
       renderPlaces("ALL");
       updateBudget();
       loadFeedback();
+      const hashId = (window.location.hash || "").replace("#", "");
+      if (hashId && document.getElementById(hashId)?.classList.contains("main-tab-section")) {
+        switchMainTab(hashId, true);
+      } else {
+        switchMainTab("map-section", true);
+      }
     });
   </script>
 </body>
