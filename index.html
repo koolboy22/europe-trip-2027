@@ -14,96 +14,122 @@
   <!-- Supabase JS Client (Cloud Realtime DB for GitHub Pages) -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;600&family=Pretendard:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    body { font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif; background-color: #f8fafc; }
+    body { font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif; background-color: #f8fafc; color: #0f172a; }
+    .font-mono-tech { font-family: 'JetBrains Mono', monospace; }
     #map { height: 420px; width: 100%; border-radius: 1rem; z-index: 10; }
-    .glass-card { background: rgba(255, 255, 255, 0.92); backdrop-filter: blur(10px); }
-    .active-tab { background-color: #1e293b; color: #ffffff; }
+    .alpine-card { background: #ffffff; border: 1px solid #e2e8f0; box-shadow: 0 1px 3px 0 rgba(15, 23, 42, 0.04), 0 1px 2px -1px rgba(15, 23, 42, 0.02); }
+    .active-tab { background-color: #0f172a; color: #ffffff; }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
   </style>
 </head>
 <body class="text-slate-800 antialiased">
 
-  <!-- Hero Section -->
-  <header class="relative bg-gradient-to-br from-slate-900 via-blue-950 to-emerald-950 text-white overflow-hidden">
-    <div class="absolute inset-0 opacity-25 bg-[url('https://images.unsplash.com/photo-1516483638261-f4dbaf036963?auto=format&fit=crop&w=1800&q=80')] bg-cover bg-center"></div>
-    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
-      <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+  <!-- Sticky Top Navigation Bar (Alpine Journal) -->
+  <nav class="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between gap-4">
+      <div class="flex items-center gap-2.5 shrink-0">
+        <span class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-blue-600 text-white text-sm shadow-sm">🏔️</span>
+        <div class="leading-tight">
+          <div class="text-sm font-extrabold tracking-tight text-slate-900">Alpine Voyage 2027</div>
+          <div class="font-mono-tech text-[10px] text-slate-500">2027.10.09 ~ 10.22 · 13박 14일</div>
+        </div>
+      </div>
+
+      <!-- Single-line Scrollable Nav Pills -->
+      <div class="hidden md:flex items-center gap-1.5 overflow-x-auto no-scrollbar whitespace-nowrap text-xs">
+        <a href="#map-section" class="px-2.5 py-1.5 rounded-lg text-slate-600 hover:bg-slate-100 hover:text-slate-900 font-semibold transition">🗺️ 동선 지도</a>
+        <a href="#flight-section" class="px-2.5 py-1.5 rounded-lg text-slate-600 hover:bg-slate-100 hover:text-slate-900 font-semibold transition">✈️ 항공·합류</a>
+        <a href="#alps-compare-section" class="px-2.5 py-1.5 rounded-lg bg-teal-50 text-teal-800 border border-teal-200 hover:bg-teal-100 font-bold transition">🏔️ 알프스 3개 지역 비교</a>
+        <a href="#schedule-section" class="px-2.5 py-1.5 rounded-lg text-slate-600 hover:bg-slate-100 hover:text-slate-900 font-semibold transition">📅 14일 일정</a>
+        <a href="#places-section" class="px-2.5 py-1.5 rounded-lg text-slate-600 hover:bg-slate-100 hover:text-slate-900 font-semibold transition">🍽️ 맛집·마트</a>
+        <a href="#budget-section" class="px-2.5 py-1.5 rounded-lg text-slate-600 hover:bg-slate-100 hover:text-slate-900 font-semibold transition">💰 예산</a>
+        <a href="#tips-section" class="px-2.5 py-1.5 rounded-lg text-slate-600 hover:bg-slate-100 hover:text-slate-900 font-semibold transition">📚 여행 상식</a>
+      </div>
+
+      <!-- User Selector & Vote Jump -->
+      <div class="flex items-center gap-2 shrink-0">
+        <div class="flex items-center gap-1.5 bg-slate-50 border border-slate-200 rounded-lg px-2.5 py-1">
+          <span class="text-xs">👤</span>
+          <input id="current-user" type="text" value="Jacky" placeholder="이름 입력"
+                 class="text-xs font-bold text-slate-900 bg-transparent focus:outline-none w-16 sm:w-24" />
+        </div>
+        <a href="#feedback-section" class="px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-sm transition whitespace-nowrap">
+          🗳️ 투표 (<span id="comment-count-badge">1</span>)
+        </a>
+      </div>
+    </div>
+    <!-- Mobile Horizontal Nav -->
+    <div class="md:hidden border-t border-slate-100 px-4 py-2 flex items-center gap-1.5 overflow-x-auto no-scrollbar whitespace-nowrap text-[11px]">
+      <a href="#map-section" class="px-2.5 py-1 rounded-full bg-slate-100 text-slate-700 font-semibold">🗺️ 지도</a>
+      <a href="#flight-section" class="px-2.5 py-1 rounded-full bg-slate-100 text-slate-700 font-semibold">✈️ 항공</a>
+      <a href="#alps-compare-section" class="px-2.5 py-1 rounded-full bg-teal-50 text-teal-800 border border-teal-200 font-bold">🏔️ 알프스 비교</a>
+      <a href="#schedule-section" class="px-2.5 py-1 rounded-full bg-slate-100 text-slate-700 font-semibold">📅 일정</a>
+      <a href="#places-section" class="px-2.5 py-1 rounded-full bg-slate-100 text-slate-700 font-semibold">🍽️ 맛집·마트</a>
+      <a href="#budget-section" class="px-2.5 py-1 rounded-full bg-slate-100 text-slate-700 font-semibold">💰 예산</a>
+      <a href="#tips-section" class="px-2.5 py-1 rounded-full bg-amber-50 text-amber-800 font-semibold">📚 상식</a>
+    </div>
+  </nav>
+
+  <!-- Editorial Hero Section (Alpine Journal) -->
+  <header class="bg-white border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-10">
+      <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
         <div>
-          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/20 border border-amber-400/40 text-amber-300 text-xs font-semibold mb-4">
-            <span>🏔️ 2027. 10. 09 (토) ~ 10. 22 (금) · 13박 14일</span>
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-700 font-mono-tech text-[11px] font-semibold mb-3">
+            <span>EXPEDITION BLUEPRINT 2027 · AUTUMN FOLIAGE &amp; 9-SEATER VAN</span>
           </div>
-          <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight">
-            2027 유럽 대학동창 5인 여행
+          <h1 class="text-2xl sm:text-4xl font-extrabold tracking-tight text-slate-900">
+            2027 유럽 동창 5인 원정대 통합 플래너
           </h1>
-          <p class="mt-3 text-slate-300 text-base sm:text-lg max-w-2xl">
-            뮌헨 · 이탈리아 돌로미티(알프스) · 오스트리아 빈 · 체코 프라하<br/>
-            자연경관과 가벼운 트레킹, 도시별 정통 맛집 디너, 그리고 에어비앤비 별채에서의 저녁 만찬
+          <p class="mt-2 text-slate-600 text-sm sm:text-base max-w-2xl leading-relaxed">
+            뮌헨 · 알프스 거점(돌로미티 / 호에 타우에른 / 슐라트밍) · 빈 · 프라하<br/>
+            자연경관과 가벼운 트레킹, 도시별 정통 맛집 디너, 그리고 별채에서의 저녁 만찬
           </p>
         </div>
-        <div class="flex flex-col sm:flex-row lg:flex-col gap-3">
+        <div class="flex flex-wrap items-center gap-2.5 shrink-0">
           <a href="https://app.notion.com/p/41002646c8a4815ca255e90bf5a0d0c9" target="_blank"
-             class="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-white text-slate-900 font-bold text-sm shadow-lg hover:bg-slate-100 transition">
-            <span>📓 Notion 원본 계획서 열기</span>
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+             class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white border border-slate-200 text-slate-800 font-bold text-xs shadow-sm hover:bg-slate-50 transition">
+            <span>📓 Notion 마스터 문서</span>
+            <svg class="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
           </a>
           <a href="#feedback-section"
-             class="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-emerald-500 text-white font-bold text-sm shadow-lg hover:bg-emerald-600 transition">
-            <span>🗳️ 참석자 투표 & 의견 남기기</span>
+             class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-blue-600 text-white font-bold text-xs shadow-sm hover:bg-blue-700 transition">
+            <span>🗳️ 참석자 투표 &amp; 의견 남기기</span>
           </a>
         </div>
       </div>
 
-      <!-- Summary Stat Cards -->
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-10">
-        <div class="bg-white/10 backdrop-blur-md border border-white/15 rounded-2xl p-4">
-          <div class="text-xs text-slate-300">참석 인원 & 구성</div>
-          <div class="text-xl font-bold mt-1">동창 5명 <span class="text-sm font-normal text-amber-300">(한국 4 + 싱가포르 1)</span></div>
-          <div class="text-xs text-slate-300 mt-1">10/9(토) 오전 뮌헨 공항 합류</div>
+      <!-- 4-Column KPI Strip -->
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-3.5 mt-7">
+        <div class="rounded-xl bg-slate-50 border border-slate-200 p-4">
+          <div class="font-mono-tech text-[10px] font-semibold text-slate-500 uppercase tracking-wider">TOTAL SCHEDULE</div>
+          <div class="text-lg sm:text-xl font-extrabold text-slate-900 mt-1">13박 14일</div>
+          <div class="text-xs text-slate-600 mt-1">2027.10.09(토) ~ 10.22(금)</div>
         </div>
-        <div class="bg-white/10 backdrop-blur-md border border-white/15 rounded-2xl p-4">
-          <div class="text-xs text-slate-300">4대 거점 베이스 (13박)</div>
-          <div class="text-xl font-bold mt-1">뮌헨3 · 돌로미티4 · 빈3 · 프라하3</div>
-          <div class="text-xs text-slate-300 mt-1">에어비앤비 독채 (침실3+, 욕실2+)</div>
+        <div class="rounded-xl bg-slate-50 border border-slate-200 p-4">
+          <div class="font-mono-tech text-[10px] font-semibold text-slate-500 uppercase tracking-wider">CREW &amp; MOBILITY</div>
+          <div class="text-lg sm:text-xl font-extrabold text-slate-900 mt-1">동창 5명 · 9인승 밴</div>
+          <div class="text-xs text-slate-600 mt-1">한국 4 + 싱가포르 1 (뮌헨 합류)</div>
         </div>
-        <div class="bg-white/10 backdrop-blur-md border border-white/15 rounded-2xl p-4">
-          <div class="text-xs text-slate-300">이동 수단</div>
-          <div class="text-xl font-bold mt-1">도시간 기차 + 알프스 4일 렌트</div>
-          <div class="text-xs text-slate-300 mt-1">볼차노 픽업/반납 9인승 밴</div>
+        <div class="rounded-xl bg-slate-50 border border-slate-200 p-4">
+          <div class="font-mono-tech text-[10px] font-semibold text-slate-500 uppercase tracking-wider">4 BASECAMPS</div>
+          <div class="text-lg sm:text-xl font-extrabold text-slate-900 mt-1">뮌헨3 · 알프스4 · 빈3 · 프라하3</div>
+          <div class="text-xs text-slate-600 mt-1">에어비앤비 집 전체 (침실 3+)</div>
         </div>
-        <div class="bg-white/10 backdrop-blur-md border border-white/15 rounded-2xl p-4">
-          <div class="text-xs text-slate-300">현지 예산 (5인 합계, 항공 별도)</div>
-          <div class="text-xl font-bold mt-1 text-emerald-300">약 1,710만원 <span class="text-sm font-normal">(€11,030)</span></div>
-          <div class="text-xs text-slate-300 mt-1">1인 약 342만원 (절감 시 1,600만원 가능)</div>
+        <div class="rounded-xl bg-slate-50 border border-slate-200 p-4">
+          <div class="font-mono-tech text-[10px] font-semibold text-slate-500 uppercase tracking-wider">ESTIMATED BUDGET</div>
+          <div class="text-lg sm:text-xl font-extrabold text-emerald-700 mt-1">1인 320~342만 원</div>
+          <div class="text-xs text-slate-600 mt-1">5인 총 약 1,600~1,710만 (항공 별도)</div>
         </div>
       </div>
     </div>
   </header>
 
   <!-- Main Content -->
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
-
-    <!-- Participant Name Bar (Sticky) -->
-    <div class="sticky top-3 z-30 bg-white/95 backdrop-blur shadow-md border border-slate-200 rounded-2xl px-4 py-3 flex flex-wrap items-center justify-between gap-3">
-      <div class="flex items-center gap-3">
-        <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-blue-600 text-white font-bold text-sm">👤</span>
-        <div>
-          <label for="current-user" class="text-xs font-semibold text-slate-500 block">내 이름 선택/입력 (투표 및 댓글 작성자)</label>
-          <input id="current-user" type="text" value="Jacky" placeholder="이름을 입력하세요 (예: 김철수)"
-                 class="text-sm font-bold text-slate-900 border-b border-slate-300 focus:border-blue-600 focus:outline-none px-1 py-0.5 w-44" />
-        </div>
-      </div>
-      <div class="flex flex-wrap items-center gap-2 text-xs">
-        <a href="#map-section" class="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 font-medium">🗺️ 동선 지도</a>
-        <a href="#flight-section" class="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 font-medium">✈️ 항공·합류</a>
-        <a href="#alps-compare-section" class="px-3 py-1.5 rounded-lg bg-emerald-50 text-emerald-800 border border-emerald-200 hover:bg-emerald-100 font-bold">🏔️ 알프스 대안 비교</a>
-        <a href="#schedule-section" class="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 font-medium">📅 14일 일정</a>
-        <a href="#places-section" class="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 font-medium">🍽️ 맛집·마트·숙소</a>
-        <a href="#budget-section" class="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 font-medium">💰 예산 시뮬레이터</a>
-        <a href="#tips-section" class="px-3 py-1.5 rounded-lg bg-amber-50 text-amber-800 border border-amber-200 hover:bg-amber-100 font-bold">📚 여행 상식</a>
-        <a href="#feedback-section" class="px-3 py-1.5 rounded-lg bg-emerald-600 text-white hover:bg-emerald-700 font-bold">🗳️ 투표·피드백 (<span id="comment-count-badge">1</span>)</a>
-      </div>
-    </div>
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
 
     <!-- Section 1: Interactive Day-by-Day Google Maps Route Explorer -->
     <section id="map-section" class="bg-white rounded-3xl shadow-sm border border-slate-200 p-5 sm:p-6 space-y-5">
@@ -307,61 +333,126 @@
     </section>
 
     <!-- Section 2.5: Alps Course Comparison (Dolomites vs Hohe Tauern National Park) -->
-    <section id="alps-compare-section" class="bg-white rounded-2xl shadow-sm border-2 border-emerald-500/40 p-6 space-y-6">
+    <section id="alps-compare-section" class="alpine-card rounded-2xl p-6 space-y-6">
       <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 pb-4 border-b border-slate-200">
         <div>
-          <span class="inline-block px-2.5 py-0.5 rounded-full text-xs font-extrabold bg-emerald-100 text-emerald-800 mb-1.5">🏔️ D4~D8 (4박 5일) 알프스 핵심 거점 3개 지역 비교</span>
-          <h2 class="text-xl font-extrabold text-slate-900">🇮🇹 [기존안] 돌로미티 vs 🇦🇹 [대안1] 호에 타우에른 vs 🇦🇹 [대안2] 슐라트밍</h2>
-          <p class="text-xs text-slate-600 mt-1">10월 중순의 이동 시간, 시설 운영 안정성, 5인 실비 예산을 한눈에 비교해 보고 하단 투표 보드에서 선택해 주세요!</p>
+          <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full font-mono-tech text-[11px] font-semibold bg-teal-50 text-teal-800 border border-teal-200 mb-1.5">
+            🏔️ D4~D8 (4박 5일) BASECAMP COMPARISON
+          </span>
+          <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">알프스 3개 거점 후보 비교 &amp; 동창 선택</h2>
+          <p class="text-xs text-slate-500 mt-1">10월 중순의 이동 시간, 시설 운영 안정성, 5인 실비 예산을 카드별로 비교한 뒤 하단 보드에서 투표해 주세요.</p>
         </div>
-        <a href="#feedback-section" class="shrink-0 px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold shadow transition">
+        <a href="#feedback-section" class="shrink-0 px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-sm transition">
           🗳️ 알프스 코스 투표하러 가기
         </a>
       </div>
 
-      <!-- Comparison Table -->
-      <div class="overflow-x-auto">
-        <table class="w-full text-xs sm:text-sm text-left border-collapse">
-          <thead>
-            <tr class="bg-slate-900 text-white text-xs uppercase">
-              <th class="py-3 px-3 rounded-tl-xl">비교 항목</th>
-              <th class="py-3 px-3 bg-emerald-900/90">🇮🇹 기존안: 돌로미티<br/><span class="font-normal text-[10px] text-emerald-200">(오르티세이 4박)</span></th>
-              <th class="py-3 px-3 bg-blue-900/90">🇦🇹 대안1: 호에 타우에른<br/><span class="font-normal text-[10px] text-blue-200">(첼암제·피젠도르프 4박)</span></th>
-              <th class="py-3 px-3 bg-teal-900/90">🇦🇹 대안2: 슐라트밍<br/><span class="font-normal text-[10px] text-teal-200">(슐라트밍·람자우 4박)</span></th>
-              <th class="py-3 px-3 rounded-tr-xl">핵심 우위</th>
-            </tr>
-          </thead>
-          <tbody class="divide-y divide-slate-200 text-xs">
-            <tr>
-              <td class="py-3 px-3 font-extrabold text-slate-900 bg-slate-50">🚆 이동 시간<br/><span class="text-[11px] font-normal text-slate-500">(뮌헨 → 알프스 → 빈)</span></td>
-              <td class="py-3 px-3">• 뮌헨→볼차노: <b>4시간</b><br/>• 볼차노→빈(D8): <b>7시간 15분</b><br/><b>(총 11시간 15분)</b></td>
-              <td class="py-3 px-3 bg-blue-50/40">• 뮌헨→첼암제: <b>2시간 40분</b><br/>• 첼암제→빈(D8): <b>4시간 20분</b><br/><b>(총 7시간)</b></td>
-              <td class="py-3 px-3 bg-teal-50/40">• 뮌헨→슐라트밍: <b>2~2.5시간</b><br/>• 슐라트밍→빈(D8): <b>3~3.5시간</b><br/><b>(총 5.5~6시간)</b></td>
-              <td class="py-3 px-3 font-bold text-teal-700">🏆 슐라트밍 최단 동선<br/><span class="text-[11px] font-normal">(돌로미티 대비 5시간+ 단축)</span></td>
-            </tr>
-            <tr>
-              <td class="py-3 px-3 font-extrabold text-slate-900 bg-slate-50">🏔️ 자연풍경 &amp; 핵심 매력</td>
-              <td class="py-3 px-3">뾰족하게 솟은 <b>수직 백운암 기암괴석</b>과 고원 초원<br/>(세체다 · 시우시 · 트레 치메 · 브라이에스 호수)</td>
-              <td class="py-3 px-3 bg-blue-50/40"><b>3,798m 만년설 빙하 + 웅장한 고산 드라이브 + 폭포·온천</b><br/>(그로스글로크너 2,571m · 크리믈 폭포 · 타우에른 스파)</td>
-              <td class="py-3 px-3 bg-teal-50/40"><b>2,700m 빙하 전망대 + 단풍 호수·계곡 + 할슈타트(40분)</b><br/>(다흐슈타인 스카이워크 · 보덴제 · 리자흐 폭포)</td>
-              <td class="py-3 px-3 font-bold text-slate-700">⚖️ 취향 선택<br/><span class="text-[11px] font-normal">(기암 vs 드라이브 vs 빙하·단풍)</span></td>
-            </tr>
-            <tr>
-              <td class="py-3 px-3 font-extrabold text-slate-900 bg-slate-50">🍂 10월 중순(10/12~16)<br/>운영 안정성 &amp; 플랜 B</td>
-              <td class="py-3 px-3">• 시우시·세체다 정상 운행<br/>• ⚠️ <b>트레 치메 산장 폐쇄</b><br/>• 마을 식당 일부 비수기 휴무</td>
-              <td class="py-3 px-3 bg-blue-50/40">• <b>9인승 밴 무료/저가 코스 풍부</b><br/>• 크리믈·키츠슈타인호른·협곡 정상 운영<br/>• 악천후 시 <b>타우에른 스파 온천</b></td>
-              <td class="py-3 px-3 bg-teal-50/40">• <b>다흐슈타인·플라나이 운행 + 협곡/호수 단풍 절정</b><br/>• 악천후 시 <b>아드몬트 수도원 도서관 · 온천(Grimming/Amadé)</b></td>
-              <td class="py-3 px-3 font-bold text-emerald-700">🏆 오스트리아 2곳 우세<br/><span class="text-[11px] font-normal">(전천후 실내·온천 대안 풍부)</span></td>
-            </tr>
-            <tr>
-              <td class="py-3 px-3 font-extrabold text-slate-900 bg-slate-50">💰 4박 5일 핵심 비용<br/><span class="text-[11px] font-normal text-slate-500">(5인 숙박+입장료 실비)</span></td>
-              <td class="py-3 px-3">숙박 ~310~390만 + 케이블카 €600(~93만) + 톨·유류비 최대<br/><b>→ 약 420~500만 원+</b></td>
-              <td class="py-3 px-3 bg-blue-50/40">외곽 별채 205~270만 + 입장료 ~60만(미이용 19만)<br/><b>→ 약 275~340만 원</b><br/><span class="text-[11px] text-blue-700">(카드 없이 최저가)</span></td>
-              <td class="py-3 px-3 bg-teal-50/40">제휴 숙소 230~330만 + 가을카드 무료(다흐슈타인·플라나이) + 실비 ~10만<br/><b>→ 약 250~350만 원</b></td>
-              <td class="py-3 px-3 font-bold text-blue-700">🏆 호에타우에른 / 슐라트밍<br/><span class="text-[11px] font-normal">(돌로미티 대비 100만+ 절감)</span></td>
-            </tr>
-          </tbody>
-        </table>
+      <!-- 3-Column Alpine Journal Comparison Grid -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
+        <!-- Card 1: Dolomites -->
+        <div class="rounded-2xl bg-white border border-slate-200 hover:border-emerald-300 transition p-5 flex flex-col justify-between space-y-4 shadow-sm">
+          <div class="space-y-3.5">
+            <div class="flex items-center justify-between">
+              <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">🇮🇹 기존안 (원안)</span>
+              <span class="font-mono-tech text-[11px] text-slate-400">ORTISEI · 4 NIGHTS</span>
+            </div>
+            <div>
+              <h3 class="text-lg font-extrabold text-slate-900">돌로미티 (오르티세이)</h3>
+              <p class="text-xs text-slate-500 mt-0.5">세체다 · 알페 디 시우시 · 트레 치메 · 브라이에스 호수</p>
+            </div>
+            <div class="space-y-2.5 pt-2 border-t border-slate-100 text-xs">
+              <div class="flex items-start gap-2">
+                <span class="shrink-0">🚆</span>
+                <div><b class="text-slate-900">이동 총 11시간 15분</b><br/><span class="text-slate-500">뮌헨→볼차노 4h + 볼차노→빈 7h 15m</span></div>
+              </div>
+              <div class="flex items-start gap-2">
+                <span class="shrink-0">🏔️</span>
+                <div><b class="text-slate-900">수직 백운암 기암괴석</b><br/><span class="text-slate-500">독보적인 알프스 파노라마, 고원 초원 트레킹</span></div>
+              </div>
+              <div class="flex items-start gap-2">
+                <span class="shrink-0">💰</span>
+                <div><b class="text-slate-900">4박 핵심 실비 약 420~500만 원+</b><br/><span class="text-slate-500">숙박 310~390만 + 케이블카 €600 + 톨·유류비 최대</span></div>
+              </div>
+              <div class="p-2.5 rounded-lg bg-amber-50 border border-amber-200 text-amber-900 text-[11px] leading-relaxed">
+                ⚠️ <b>10월 중순 체크:</b> 시우시·세체다는 운행하나 <b>트레 치메 산장 폐쇄</b>(도시락 필수) 및 일부 식당 휴무
+              </div>
+            </div>
+          </div>
+          <div class="pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
+            <span class="text-slate-500 font-semibold">압도적 기암절벽 뷰</span>
+            <a href="#feedback-section" class="px-3 py-1.5 rounded-lg bg-emerald-50 text-emerald-700 font-bold hover:bg-emerald-100 transition">투표하기 →</a>
+          </div>
+        </div>
+
+        <!-- Card 2: Hohe Tauern -->
+        <div class="rounded-2xl bg-white border border-slate-200 hover:border-blue-300 transition p-5 flex flex-col justify-between space-y-4 shadow-sm">
+          <div class="space-y-3.5">
+            <div class="flex items-center justify-between">
+              <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-blue-50 text-blue-700 border border-blue-200">🇦🇹 대안 1 · 최저가</span>
+              <span class="font-mono-tech text-[11px] text-slate-400">ZELL AM SEE · 4 NIGHTS</span>
+            </div>
+            <div>
+              <h3 class="text-lg font-extrabold text-slate-900">호에 타우에른 (첼암제·피젠도르프)</h3>
+              <p class="text-xs text-slate-500 mt-0.5">그로스글로크너(2,571m) · 크리믈 폭포 · 타우에른 스파</p>
+            </div>
+            <div class="space-y-2.5 pt-2 border-t border-slate-100 text-xs">
+              <div class="flex items-start gap-2">
+                <span class="shrink-0">🚆</span>
+                <div><b class="text-slate-900">이동 총 7시간</b><br/><span class="text-slate-500">뮌헨→첼암제 2h 40m + 첼암제→빈 4h 20m</span></div>
+              </div>
+              <div class="flex items-start gap-2">
+                <span class="shrink-0">🏔️</span>
+                <div><b class="text-slate-900">만년설 드라이브 + 폭포 + 온천</b><br/><span class="text-slate-500">9인승 밴으로 무료·저가 자연 명소 중심 자유 이동</span></div>
+              </div>
+              <div class="flex items-start gap-2">
+                <span class="shrink-0">💰</span>
+                <div><b class="text-blue-700">4박 핵심 실비 약 275~340만 원 🏆</b><br/><span class="text-slate-500">외곽 별채 205~270만 + 입장료 19~60만 (카드없이 최저)</span></div>
+              </div>
+              <div class="p-2.5 rounded-lg bg-blue-50 border border-blue-200 text-blue-900 text-[11px] leading-relaxed">
+                ♨️ <b>전천후 강점:</b> 비·눈 와도 <b>타우에른 스파 노천온천</b> 힐링 가능 (단, 그로스글로크너 당일 적설 통제 확인)
+              </div>
+            </div>
+          </div>
+          <div class="pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
+            <span class="text-blue-700 font-bold">카드 없이 가성비 1위</span>
+            <a href="#feedback-section" class="px-3 py-1.5 rounded-lg bg-blue-50 text-blue-700 font-bold hover:bg-blue-100 transition">투표하기 →</a>
+          </div>
+        </div>
+
+        <!-- Card 3: Schladming (Highlighted) -->
+        <div class="relative rounded-2xl bg-white border-2 border-teal-500 ring-4 ring-teal-500/10 p-5 flex flex-col justify-between space-y-4 shadow-md">
+          <div class="space-y-3.5">
+            <div class="flex items-center justify-between">
+              <span class="px-2.5 py-0.5 rounded-full text-[11px] font-extrabold bg-teal-600 text-white">🇦🇹 대안 2 · 최단 동선 🏆</span>
+              <span class="font-mono-tech text-[11px] text-teal-700 font-semibold">SCHLADMING · 4 NIGHTS</span>
+            </div>
+            <div>
+              <h3 class="text-lg font-extrabold text-slate-900">슐라트밍-다흐슈타인</h3>
+              <p class="text-xs text-slate-500 mt-0.5">다흐슈타인 빙하(2,700m) · 보덴제 · 리자흐 폭포 · 할슈타트</p>
+            </div>
+            <div class="space-y-2.5 pt-2 border-t border-slate-100 text-xs">
+              <div class="flex items-start gap-2">
+                <span class="shrink-0">🚐</span>
+                <div><b class="text-teal-800">이동 총 5.5~6시간 (최단 동선)</b><br/><span class="text-slate-500">잘츠부르크 픽업 → 슐라트밍(1.2h) → 빈 반납(3.2h) · 총 660km</span></div>
+              </div>
+              <div class="flex items-start gap-2">
+                <span class="shrink-0">🍂</span>
+                <div><b class="text-slate-900">빙하 스카이워크 + 단풍 호수·협곡</b><br/><span class="text-slate-500">힘든 산행 없이 케이블카·평지 호수·할슈타트 연계</span></div>
+              </div>
+              <div class="flex items-start gap-2">
+                <span class="shrink-0">💰</span>
+                <div><b class="text-teal-800">4박 핵심 실비 약 250~350만 원</b><br/><span class="text-slate-500">가을카드 숙소 시 다흐슈타인(€345)+플라나이(€160) 무료!</span></div>
+              </div>
+              <div class="p-2.5 rounded-lg bg-teal-50 border border-teal-200 text-teal-900 text-[11px] leading-relaxed">
+                🎉 <b>가을카드 + 플랜 B:</b> 11/1까지 Herbstcard 적용 + 우천 시 <b>아드몬트 수도원 도서관 · 온천</b> 완벽 대체
+              </div>
+            </div>
+          </div>
+          <div class="pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
+            <span class="text-teal-700 font-bold">동선·편의·가을혜택 균형</span>
+            <a href="#feedback-section" class="px-3 py-1.5 rounded-lg bg-teal-600 text-white font-bold hover:bg-teal-700 transition">투표하기 →</a>
+          </div>
+        </div>
       </div>
 
       <!-- 4-Night 5-Day Alternative Schedule Cards for Hohe Tauern -->
@@ -689,15 +780,17 @@
       </div>
     </section>
 
-    <!-- Section 6: Participant Voting & Live Feedback Board -->
-    <section id="feedback-section" class="bg-gradient-to-br from-slate-900 to-slate-800 text-white rounded-3xl shadow-xl p-6 sm:p-8 space-y-8">
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-700 pb-5">
+    <!-- Section 6: Participant Voting & Live Feedback Board (Alpine Journal Light) -->
+    <section id="feedback-section" class="alpine-card rounded-2xl p-6 sm:p-8 space-y-8">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 pb-5">
         <div>
-          <span class="text-xs font-bold uppercase tracking-wider text-emerald-400">Interactive Decision Board · ☁️ Supabase 실시간 연동됨</span>
-          <h2 class="text-2xl font-extrabold mt-1">🗳️ 동창 5인 핵심 안건 투표 & 피드백 보드</h2>
-          <p class="text-xs text-slate-300 mt-1">상단에서 본인 이름을 입력한 뒤 원하는 안건에 투표하고 의견을 남겨주세요. (클라우드 DB에 실시간 저장되어 5명 모두에게 즉시 공유됩니다)</p>
+          <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full font-mono-tech text-[11px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+            COLLABORATIVE DECISION BOARD · ☁️ Supabase 실시간 연동됨
+          </span>
+          <h2 class="text-2xl font-extrabold text-slate-900 mt-1.5 tracking-tight">🗳️ 동창 5인 핵심 안건 투표 &amp; 피드백 보드</h2>
+          <p class="text-xs text-slate-500 mt-1">상단에서 본인 이름을 입력한 뒤 원하는 안건에 투표하고 의견을 남겨주세요. (클라우드 DB에 실시간 저장되어 5명 모두에게 즉시 공유됩니다)</p>
         </div>
-        <button onclick="exportFeedbackText()" class="px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-bold border border-white/20 transition">
+        <button onclick="exportFeedbackText()" class="shrink-0 px-4 py-2.5 rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-700 text-xs font-bold border border-slate-200 transition">
           📋 단톡방 공유용 결과 복사하기
         </button>
       </div>
@@ -706,35 +799,35 @@
       <div id="polls-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
 
       <!-- Comment Input & Feed -->
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 pt-4 border-t border-slate-700">
-        <div class="bg-white/5 border border-white/10 rounded-2xl p-5 space-y-4">
-          <h3 class="text-base font-bold text-white">💬 일정·숙소·맛집 피드백 남기기</h3>
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 pt-5 border-t border-slate-200">
+        <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 space-y-4">
+          <h3 class="text-base font-bold text-slate-900">💬 일정·숙소·맛집 피드백 남기기</h3>
           <div>
-            <label class="text-xs text-slate-300 block mb-1">대상 일정 / 안건</label>
-            <select id="comment-target" class="w-full rounded-xl bg-slate-800 border border-slate-600 text-white text-sm px-3 py-2 focus:outline-none focus:border-emerald-400">
+            <label class="text-xs font-semibold text-slate-600 block mb-1">대상 일정 / 안건</label>
+            <select id="comment-target" class="w-full rounded-xl bg-white border border-slate-200 text-slate-900 text-sm px-3 py-2 focus:outline-none focus:border-blue-500">
               <option value="전체 일정">전체 일정</option>
               <option value="항공권·합류">✈️ 항공권·합류</option>
               <option value="예산·회비">💰 예산·회비</option>
               <option value="D1~D3 뮌헨">🇩🇪 D1~D3 뮌헨 (노이슈반슈타인·가르미슈)</option>
-              <option value="D4~D7 돌로미티">🇮🇹 D4~D7 돌로미티 (트레킹·렌트)</option>
+              <option value="D4~D7 돌로미티">🇮🇹 D4~D7 알프스 거점 (돌로미티·호에타우에른·슐라트밍)</option>
               <option value="D8~D10 빈">🇦🇹 D8~D10 빈 (호이리게·바하우 계곡)</option>
               <option value="D11~D14 프라하">🇨🇿 D11~D14 프라하 (프라하 성·보헤미안 스위스·탱크맥주)</option>
             </select>
           </div>
           <div>
-            <label class="text-xs text-slate-300 block mb-1">의견 유형</label>
+            <label class="text-xs font-semibold text-slate-600 block mb-1">의견 유형</label>
             <div class="grid grid-cols-3 gap-2 text-xs">
-              <button type="button" onclick="selectRating('👍 좋아요')" data-rating="👍 좋아요" class="rating-btn bg-emerald-600 text-white font-bold py-2 rounded-lg border border-emerald-400">👍 좋아요</button>
-              <button type="button" onclick="selectRating('💡 제안/수정')" data-rating="💡 제안/수정" class="rating-btn bg-slate-800 text-slate-300 font-semibold py-2 rounded-lg border border-slate-600">💡 제안/수정</button>
-              <button type="button" onclick="selectRating('❓ 질문')" data-rating="❓ 질문" class="rating-btn bg-slate-800 text-slate-300 font-semibold py-2 rounded-lg border border-slate-600">❓ 질문</button>
+              <button type="button" onclick="selectRating('👍 좋아요')" data-rating="👍 좋아요" class="rating-btn bg-blue-600 text-white font-bold py-2 rounded-lg border border-blue-600">👍 좋아요</button>
+              <button type="button" onclick="selectRating('💡 제안/수정')" data-rating="💡 제안/수정" class="rating-btn bg-white text-slate-600 font-semibold py-2 rounded-lg border border-slate-200 hover:bg-slate-100">💡 제안/수정</button>
+              <button type="button" onclick="selectRating('❓ 질문')" data-rating="❓ 질문" class="rating-btn bg-white text-slate-600 font-semibold py-2 rounded-lg border border-slate-200 hover:bg-slate-100">❓ 질문</button>
             </div>
           </div>
           <div>
-            <label class="text-xs text-slate-300 block mb-1">상세 의견</label>
-            <textarea id="comment-text" rows="3" placeholder="예: D6 트레 치메는 체력 부담 없도록 천천히 돌면 좋겠어! / 뮌헨 학센집은 아우구스티너 켈러 찬성!"
-                      class="w-full rounded-xl bg-slate-800 border border-slate-600 text-white text-sm p-3 focus:outline-none focus:border-emerald-400"></textarea>
+            <label class="text-xs font-semibold text-slate-600 block mb-1">상세 의견</label>
+            <textarea id="comment-text" rows="3" placeholder="예: 슐라트밍 코스로 동선 줄이고 가을카드 활용하자! / 뮌헨 학센집은 아우구스티너 켈러 찬성!"
+                      class="w-full rounded-xl bg-white border border-slate-200 text-slate-900 text-sm p-3 focus:outline-none focus:border-blue-500"></textarea>
           </div>
-          <button onclick="submitComment()" class="w-full py-3 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-sm shadow-lg transition">
+          <button onclick="submitComment()" class="w-full py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm shadow-sm transition">
             피드백 등록하기
           </button>
         </div>
@@ -742,7 +835,7 @@
         <!-- Comments List -->
         <div class="lg:col-span-2 space-y-3">
           <div class="flex items-center justify-between">
-            <h3 class="text-base font-bold text-white">📋 등록된 친구들 의견 (<span id="comment-count">1</span>건)</h3>
+            <h3 class="text-base font-bold text-slate-900">📋 등록된 친구들 의견 (<span id="comment-count">1</span>건)</h3>
             <span class="text-xs text-slate-400">새로운 의견이 달리면 여기에 쌓입니다</span>
           </div>
           <div id="comments-list" class="space-y-3 max-h-[420px] overflow-y-auto pr-1"></div>
@@ -1979,20 +2072,20 @@
       container.innerHTML = POLL_CONFIG.map(poll => {
         const topicVotes = (feedbackState.votes && feedbackState.votes[poll.topic]) || {};
         return `
-          <div class="bg-white/5 border border-white/10 rounded-2xl p-4 flex flex-col justify-between">
-            <div class="text-sm font-bold text-white mb-3">${poll.title}</div>
+          <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4 flex flex-col justify-between">
+            <div class="text-sm font-bold text-slate-900 mb-3">${poll.title}</div>
             <div class="space-y-2">
               ${poll.options.map(opt => {
                 const voters = topicVotes[opt.key] || [];
                 const isVoted = voters.includes(currentUser);
                 return `
                   <button onclick="castVote('${poll.topic}', '${opt.key}')"
-                          class="w-full text-left p-2.5 rounded-xl border transition text-xs flex flex-col gap-1 ${isVoted ? 'bg-emerald-500/20 border-emerald-400 text-white' : 'bg-slate-800/80 border-slate-700 text-slate-200 hover:border-slate-500'}">
+                          class="w-full text-left p-2.5 rounded-xl border transition text-xs flex flex-col gap-1 ${isVoted ? 'bg-blue-50 border-blue-500 text-slate-900 ring-2 ring-blue-500/15' : 'bg-white border-slate-200 text-slate-700 hover:border-slate-300'}">
                     <div class="flex items-center justify-between gap-2">
                       <span class="font-semibold">${opt.label}</span>
-                      <span class="px-2 py-0.5 rounded-full text-[11px] font-bold ${voters.length > 0 ? 'bg-emerald-400 text-slate-900' : 'bg-slate-700 text-slate-300'}">${voters.length}표</span>
+                      <span class="px-2 py-0.5 rounded-full text-[11px] font-bold shrink-0 ${voters.length > 0 ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-100 text-slate-500'}">${voters.length}표</span>
                     </div>
-                    ${voters.length > 0 ? `<div class="text-[11px] text-emerald-300">투표자: ${voters.join(", ")}</div>` : ""}
+                    ${voters.length > 0 ? `<div class="text-[11px] text-blue-700 font-medium">투표자: ${voters.join(", ")}</div>` : ""}
                   </button>
                 `;
               }).join("")}
@@ -2032,9 +2125,9 @@
       currentRating = rating;
       document.querySelectorAll(".rating-btn").forEach(btn => {
         if (btn.dataset.rating === rating) {
-          btn.className = "rating-btn bg-emerald-600 text-white font-bold py-2 rounded-lg border border-emerald-400";
+          btn.className = "rating-btn bg-blue-600 text-white font-bold py-2 rounded-lg border border-blue-600";
         } else {
-          btn.className = "rating-btn bg-slate-800 text-slate-300 font-semibold py-2 rounded-lg border border-slate-600";
+          btn.className = "rating-btn bg-white text-slate-600 font-semibold py-2 rounded-lg border border-slate-200 hover:bg-slate-100";
         }
       });
     }
@@ -2120,21 +2213,21 @@
       document.getElementById("comment-count-badge").textContent = comments.length;
       const list = document.getElementById("comments-list");
       if (comments.length === 0) {
-        list.innerHTML = `<div class="text-xs text-slate-400 p-4 bg-white/5 rounded-xl">아직 등록된 의견이 없습니다. 첫 의견을 남겨보세요!</div>`;
+        list.innerHTML = `<div class="text-xs text-slate-500 p-4 bg-slate-50 border border-slate-200 rounded-xl">아직 등록된 의견이 없습니다. 첫 의견을 남겨보세요!</div>`;
         return;
       }
       list.innerHTML = comments.map(c => `
-        <div class="bg-white/10 border border-white/10 rounded-2xl p-4 flex items-start justify-between gap-3">
+        <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4 flex items-start justify-between gap-3">
           <div>
             <div class="flex flex-wrap items-center gap-2 text-xs">
-              <span class="font-extrabold text-amber-300">👤 ${c.author}</span>
-              <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-200 font-semibold">${c.target}</span>
-              <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-semibold">${c.rating}</span>
-              <span class="text-slate-400">${c.createdAt}</span>
+              <span class="font-extrabold text-slate-900">👤 ${c.author}</span>
+              <span class="px-2 py-0.5 rounded bg-white border border-slate-200 text-slate-700 font-semibold">${c.target}</span>
+              <span class="px-2 py-0.5 rounded bg-emerald-50 border border-emerald-200 text-emerald-700 font-semibold">${c.rating}</span>
+              <span class="font-mono-tech text-[11px] text-slate-400">${c.createdAt}</span>
             </div>
-            <p class="text-sm text-white mt-2 whitespace-pre-line">${c.text}</p>
+            <p class="text-sm text-slate-800 mt-2 whitespace-pre-line">${c.text}</p>
           </div>
-          <button onclick="deleteComment(${c.id})" class="text-xs text-slate-400 hover:text-rose-400">삭제</button>
+          <button onclick="deleteComment(${c.id})" class="text-xs text-slate-400 hover:text-rose-600 shrink-0">삭제</button>
         </div>
       `).join("");
     }
