@@ -27,6 +27,29 @@
 </head>
 <body class="text-slate-800 antialiased">
 
+  <!-- Alumni Passcode Lock Overlay (Vercel /api/auth) -->
+  <div id="auth-gate" class="hidden fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-md flex items-center justify-center p-4">
+    <div class="bg-white border border-slate-200 rounded-3xl shadow-2xl max-w-sm w-full p-6 sm:p-7 space-y-5 text-center">
+      <div class="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-blue-50 border border-blue-200 text-2xl mx-auto">🔐</div>
+      <div>
+        <div class="font-mono-tech text-[11px] font-semibold text-blue-600 uppercase tracking-wider">ALPINE VOYAGE 2027</div>
+        <h2 class="text-xl font-extrabold text-slate-900 mt-1">동창 5인 전용 플래너</h2>
+        <p class="text-xs text-slate-500 mt-1">일정·숙소·투표 보드 열람을 위해 비밀번호를 입력해 주세요.</p>
+      </div>
+      <form onsubmit="unlockApp(event)" class="space-y-3">
+        <input id="auth-passcode-input" type="password" inputmode="numeric" autocomplete="current-password"
+               placeholder="비밀번호 입력"
+               class="w-full text-center tracking-widest text-lg font-bold rounded-xl border border-slate-300 px-4 py-2.5 focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-500/20" />
+        <div id="auth-error-msg" class="hidden text-xs font-semibold text-rose-600"></div>
+        <button id="auth-submit-btn" type="submit"
+                class="w-full py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm shadow-sm transition">
+          잠금 해제하기
+        </button>
+      </form>
+      <div class="text-[11px] text-slate-400">한 번 인증하면 이 기기에서 30일간 유지됩니다.</div>
+    </div>
+  </div>
+
   <!-- Sticky Top Navigation Bar (Alpine Journal) -->
   <nav class="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-slate-200">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between gap-4">
@@ -58,6 +81,9 @@
         </div>
         <button type="button" onclick="switchMainTab('feedback-section')" data-tab="feedback-section" class="main-nav-btn px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-sm transition whitespace-nowrap">
           🗳️ 투표 (<span id="comment-count-badge">1</span>)
+        </button>
+        <button id="btn-lock-app" type="button" onclick="lockApp()" title="잠금" class="hidden px-2 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-600 text-xs font-bold transition">
+          🔒
         </button>
       </div>
     </div>
@@ -657,10 +683,14 @@
           <h2 class="text-xl font-bold text-slate-900">💰 5인 예산 시뮬레이터 (목표 1,600만원 vs 여유 1,800만원)</h2>
           <p class="text-xs text-slate-500 mt-0.5">오른쪽 절감 옵션을 체크/해제하면 실시간으로 총액과 1인당 부담금이 계산됩니다. (항공권 별도)</p>
         </div>
-        <div class="flex items-center gap-4 bg-slate-50 px-4 py-2.5 rounded-xl border border-slate-200">
+        <div class="flex flex-wrap items-center gap-3 bg-slate-50 px-4 py-2.5 rounded-xl border border-slate-200">
           <label for="fx-rate" class="text-xs font-bold text-slate-600">적용 환율 (1€)</label>
-          <input id="fx-rate" type="range" min="1450" max="1650" step="10" value="1550" oninput="updateBudget()" class="w-28 accent-blue-600" />
+          <input id="fx-rate" type="range" min="1350" max="1750" step="10" value="1550" oninput="updateBudget()" class="w-28 accent-blue-600" />
           <span id="fx-rate-label" class="text-sm font-extrabold text-blue-700">1,550원</span>
+          <button type="button" onclick="fetchLiveFx(true)" id="btn-live-fx"
+                  class="px-2.5 py-1 rounded-lg bg-white border border-slate-200 hover:bg-blue-50 hover:border-blue-300 text-[11px] font-bold text-slate-700 transition">
+            🔄 실시간 환율
+          </button>
         </div>
       </div>
 
@@ -1927,7 +1957,40 @@
       ]
     };
 
+    function applyLoadedData(data) {
+      feedbackState = {
+        votes: data.votes || DEFAULT_FEEDBACK_STATE.votes,
+        comments: data.comments || DEFAULT_FEEDBACK_STATE.comments
+      };
+      if (Array.isArray(data.custom_schedule) && data.custom_schedule.length > 0) {
+        SCHEDULE_DATA.splice(0, SCHEDULE_DATA.length, ...data.custom_schedule);
+        renderSchedule(currentScheduleFilter || "ALL");
+        renderDayRouteTabs();
+      }
+      if (Array.isArray(data.custom_places) && data.custom_places.length > 0) {
+        const mergedPlaces = data.custom_places.map(p => ({
+          ...p,
+          imgUrl: p.imgUrl || DEFAULT_PLACE_IMAGES[p.name] || ""
+        }));
+        PLACES_DATA.splice(0, PLACES_DATA.length, ...mergedPlaces);
+        renderPlaces(currentPlaceFilter || "ALL");
+      }
+      renderPolls();
+      renderComments();
+    }
+
     async function loadFeedback() {
+      try {
+        const res = await fetch("/api/feedback", { credentials: "same-origin" });
+        if (res.ok) {
+          const data = await res.json();
+          if (data && (data.votes || data.comments)) {
+            applyLoadedData(data);
+            return;
+          }
+        }
+      } catch (e) {}
+
       if (sbClient) {
         try {
           const { data, error } = await sbClient
@@ -1936,47 +1999,34 @@
             .eq("id", "main")
             .single();
           if (!error && data) {
-            feedbackState = {
-              votes: data.votes || DEFAULT_FEEDBACK_STATE.votes,
-              comments: data.comments || DEFAULT_FEEDBACK_STATE.comments
-            };
-            if (Array.isArray(data.custom_schedule) && data.custom_schedule.length > 0) {
-              SCHEDULE_DATA.splice(0, SCHEDULE_DATA.length, ...data.custom_schedule);
-              renderSchedule(currentScheduleFilter || "ALL");
-              renderDayRouteTabs();
-            }
-            if (Array.isArray(data.custom_places) && data.custom_places.length > 0) {
-              const mergedPlaces = data.custom_places.map(p => ({
-                ...p,
-                imgUrl: p.imgUrl || DEFAULT_PLACE_IMAGES[p.name] || ""
-              }));
-              PLACES_DATA.splice(0, PLACES_DATA.length, ...mergedPlaces);
-              renderPlaces(currentPlaceFilter || "ALL");
-            }
-            renderPolls();
-            renderComments();
+            applyLoadedData(data);
             return;
           }
         } catch (err) {
           console.warn("Supabase fetch fallback:", err);
         }
       }
-      // Fallback to local API or default state
-      try {
-        const res = await fetch("/api/feedback");
-        if (res.ok) {
-          feedbackState = await res.json();
-        } else {
-          feedbackState = DEFAULT_FEEDBACK_STATE;
-        }
-      } catch (e) {
-        feedbackState = DEFAULT_FEEDBACK_STATE;
-      }
+      feedbackState = DEFAULT_FEEDBACK_STATE;
       renderPolls();
       renderComments();
     }
 
     async function saveFeedbackToSupabase() {
+      try {
+        const res = await fetch("/api/feedback", {
+          method: "POST",
+          credentials: "same-origin",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            votes: feedbackState.votes,
+            comments: feedbackState.comments,
+            custom_schedule: SCHEDULE_DATA,
+            custom_places: PLACES_DATA
+          })
+        });
+        if (res.ok) return true;
+      } catch (e) {}
+
       if (!sbClient) return false;
       try {
         const { error } = await sbClient
@@ -2325,9 +2375,13 @@
       }
     }
 
-    document.getElementById("current-user").addEventListener("input", renderPolls);
-
-    window.addEventListener("DOMContentLoaded", () => {
+    let appInitialized = false;
+    function startApp() {
+      if (appInitialized) {
+        loadFeedback();
+        return;
+      }
+      appInitialized = true;
       initMap();
       renderSchedule("ALL");
       renderPlaces("ALL");
@@ -2339,6 +2393,110 @@
       } else {
         switchMainTab("map-section", true);
       }
+    }
+
+    async function checkAuth() {
+      const gate = document.getElementById("auth-gate");
+      const lockBtn = document.getElementById("btn-lock-app");
+      try {
+        const res = await fetch("/api/auth", { credentials: "same-origin" });
+        if (!res.ok) {
+          // Static fallback (GitHub Pages / local file)
+          startApp();
+          return;
+        }
+        const data = await res.json();
+        if (lockBtn) lockBtn.classList.remove("hidden");
+        if (data.authenticated) {
+          gate.classList.add("hidden");
+          startApp();
+        } else {
+          gate.classList.remove("hidden");
+          setTimeout(() => document.getElementById("auth-passcode-input")?.focus(), 100);
+        }
+      } catch (e) {
+        startApp();
+      }
+    }
+
+    async function unlockApp(e) {
+      e.preventDefault();
+      const input = document.getElementById("auth-passcode-input");
+      const errEl = document.getElementById("auth-error-msg");
+      const btn = document.getElementById("auth-submit-btn");
+      const passcode = (input.value || "").trim();
+      if (!passcode) return;
+      btn.disabled = true;
+      btn.textContent = "확인 중...";
+      errEl.classList.add("hidden");
+      try {
+        const res = await fetch("/api/auth", {
+          method: "POST",
+          credentials: "same-origin",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ passcode })
+        });
+        const data = await res.json();
+        if (res.ok && data.authenticated) {
+          input.value = "";
+          document.getElementById("auth-gate").classList.add("hidden");
+          startApp();
+        } else {
+          errEl.textContent = data.error || "비밀번호가 올바르지 않습니다.";
+          errEl.classList.remove("hidden");
+          input.select();
+        }
+      } catch (err) {
+        errEl.textContent = "인증 요청에 실패했습니다. 잠시 후 다시 시도해 주세요.";
+        errEl.classList.remove("hidden");
+      } finally {
+        btn.disabled = false;
+        btn.textContent = "잠금 해제하기";
+      }
+    }
+
+    async function lockApp() {
+      try {
+        await fetch("/api/auth", { method: "DELETE", credentials: "same-origin" });
+      } catch (e) {}
+      document.getElementById("auth-gate").classList.remove("hidden");
+      setTimeout(() => document.getElementById("auth-passcode-input")?.focus(), 100);
+    }
+
+    async function fetchLiveFx(showAlert) {
+      const btn = document.getElementById("btn-live-fx");
+      if (btn) {
+        btn.disabled = true;
+        btn.textContent = "조회 중...";
+      }
+      try {
+        const res = await fetch("/api/fx");
+        if (!res.ok) throw new Error("FX API unavailable");
+        const data = await res.json();
+        if (data && data.rate) {
+          const slider = document.getElementById("fx-rate");
+          const clamped = Math.min(1750, Math.max(1350, data.rate));
+          slider.value = clamped;
+          updateBudget();
+          if (showAlert) {
+            const note = data.date ? ` (${data.date} 기준 ${data.rawRate}원)` : " (기본 환율 적용)";
+            alert(`✅ 실시간 유로 환율 1€ = ${clamped.toLocaleString()}원 반영 완료${note}`);
+          }
+        }
+      } catch (e) {
+        if (showAlert) alert("⚠️ 실시간 환율 API는 Vercel 배포 환경에서 동작합니다. 슬라이더로 직접 조절해 주세요.");
+      } finally {
+        if (btn) {
+          btn.disabled = false;
+          btn.textContent = "🔄 실시간 환율";
+        }
+      }
+    }
+
+    document.getElementById("current-user").addEventListener("input", renderPolls);
+
+    window.addEventListener("DOMContentLoaded", () => {
+      checkAuth();
     });
   </script>
 </body>
