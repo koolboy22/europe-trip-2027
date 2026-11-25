@@ -70,6 +70,7 @@
         <button type="button" onclick="switchMainTab('flight-section')" data-tab="flight-section" class="main-nav-btn px-2.5 py-1.5 rounded-lg text-slate-600 hover:bg-slate-100 font-semibold transition">✈️ 항공·합류</button>
         <button type="button" onclick="switchMainTab('budget-section')" data-tab="budget-section" class="main-nav-btn px-2.5 py-1.5 rounded-lg text-slate-600 hover:bg-slate-100 font-semibold transition">💰 예산</button>
         <button type="button" onclick="switchMainTab('tips-section')" data-tab="tips-section" class="main-nav-btn px-2.5 py-1.5 rounded-lg text-slate-600 hover:bg-slate-100 font-semibold transition">📚 여행 상식</button>
+        <button type="button" onclick="switchMainTab('history-section')" data-tab="history-section" class="main-nav-btn px-2.5 py-1.5 rounded-lg text-slate-600 hover:bg-slate-100 font-semibold transition">🏛️ 역사</button>
       </div>
 
       <!-- User Selector & Vote Jump -->
@@ -96,6 +97,7 @@
       <button type="button" onclick="switchMainTab('flight-section')" data-tab="flight-section" class="main-nav-btn px-2.5 py-1 rounded-full bg-slate-100 text-slate-700 font-semibold">✈️ 항공</button>
       <button type="button" onclick="switchMainTab('budget-section')" data-tab="budget-section" class="main-nav-btn px-2.5 py-1 rounded-full bg-slate-100 text-slate-700 font-semibold">💰 예산</button>
       <button type="button" onclick="switchMainTab('tips-section')" data-tab="tips-section" class="main-nav-btn px-2.5 py-1 rounded-full bg-slate-100 text-slate-700 font-semibold">📚 상식</button>
+      <button type="button" onclick="switchMainTab('history-section')" data-tab="history-section" class="main-nav-btn px-2.5 py-1 rounded-full bg-slate-100 text-slate-700 font-semibold">🏛️ 역사</button>
       <button type="button" onclick="switchMainTab('feedback-section')" data-tab="feedback-section" class="main-nav-btn px-2.5 py-1 rounded-full bg-blue-50 text-blue-700 font-bold">🗳️ 투표</button>
     </div>
   </nav>
@@ -818,6 +820,53 @@
           </ul>
         </div>
       </div>
+    </section>
+
+    <!-- Section 5.6: Country & City History Guide (Alpine Journal) -->
+    <section id="history-section" class="main-tab-section hidden alpine-card rounded-2xl p-6 sm:p-8 space-y-6">
+      <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-4 border-b border-slate-200 pb-5">
+        <div>
+          <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full font-mono-tech text-[11px] font-semibold bg-indigo-50 text-indigo-700 border border-indigo-200">
+            HISTORICAL FIELD GUIDE · 4 COUNTRIES · 10 CITIES &amp; REGIONS
+          </span>
+          <h2 class="text-2xl font-extrabold text-slate-900 mt-1.5 tracking-tight">🏛️ 나라별·도시별 역사 가이드</h2>
+          <p class="text-xs sm:text-sm text-slate-500 mt-1">
+            D1 뮌헨부터 D14 프라하까지, 동선을 따라 만나는 4개국·10개 도시의 역사와 명소·맛집 비하인드 스토리를 정리했습니다.
+          </p>
+        </div>
+        <div class="flex flex-wrap gap-1.5 text-xs" id="history-country-filters">
+          <button type="button" onclick="filterHistoryCountry('ALL')" data-history-filter="ALL" class="history-filter-btn px-3 py-1.5 rounded-lg bg-slate-900 text-white font-bold transition">전체 (10)</button>
+          <button type="button" onclick="filterHistoryCountry('DE')" data-history-filter="DE" class="history-filter-btn px-3 py-1.5 rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200 font-semibold transition">🇩🇪 독일 (3)</button>
+          <button type="button" onclick="filterHistoryCountry('IT')" data-history-filter="IT" class="history-filter-btn px-3 py-1.5 rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200 font-semibold transition">🇮🇹 남티롤 (1)</button>
+          <button type="button" onclick="filterHistoryCountry('AT')" data-history-filter="AT" class="history-filter-btn px-3 py-1.5 rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200 font-semibold transition">🇦🇹 오스트리아 (4)</button>
+          <button type="button" onclick="filterHistoryCountry('CZ')" data-history-filter="CZ" class="history-filter-btn px-3 py-1.5 rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200 font-semibold transition">🇨🇿 체코 (2)</button>
+        </div>
+      </div>
+
+      <!-- 3 Big Historical Threads Across the 4 Countries -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs leading-relaxed">
+        <div class="rounded-2xl border border-amber-200 bg-amber-50/60 p-4 space-y-1.5">
+          <div class="font-extrabold text-amber-950 flex items-center gap-1.5">👑 신성로마제국 &amp; 합스부르크 640년</div>
+          <p class="text-slate-700">
+            뮌헨(비텔스바흐), 빈(합스부르크), 프라하(보헤미아 왕국)는 수백 년간 <b>신성로마제국</b>이라는 거대한 우산 아래 경쟁하고 결혼하며 얽혔습니다. 빈의 쇤브룬과 프라하 성이 닮아 보이는 이유입니다.
+          </p>
+        </div>
+        <div class="rounded-2xl border border-teal-200 bg-teal-50/60 p-4 space-y-1.5">
+          <div class="font-extrabold text-teal-950 flex items-center gap-1.5">🏔️ 알프스 국경과 제1차 세계대전</div>
+          <p class="text-slate-700">
+            돌로미티(남티롤)는 원래 <b>오스트리아-헝가리 제국 땅</b>이었으나, 1차 세계대전 산악전 후 이탈리아에 편입되었습니다. 표지판이 독일어·이탈리아어 병기이고 음식도 슈니첼과 파스타가 공존합니다.
+          </p>
+        </div>
+        <div class="rounded-2xl border border-indigo-200 bg-indigo-50/60 p-4 space-y-1.5">
+          <div class="font-extrabold text-indigo-950 flex items-center gap-1.5">🍺 맥주 · 와인 · 커피하우스의 탄생</div>
+          <p class="text-slate-700">
+            바이에른 <b>맥주 순수령(1516)</b>, 오스만 포위전(1683)이 남긴 <b>빈 커피하우스</b>, 베토벤이 즐긴 <b>호이리게 와인</b>, 그리고 체코 <b>황금빛 필스너 라거(1842)</b>까지 — 이번 여행의 술과 음식은 곧 살아있는 역사입니다.
+          </p>
+        </div>
+      </div>
+
+      <!-- Dynamic Country & City Cards Container -->
+      <div id="history-content-container" class="space-y-8"></div>
     </section>
 
     <!-- Section 6: Participant Voting & Live Feedback Board (Alpine Journal Light) -->
@@ -2409,6 +2458,340 @@
       }
     }
 
+    // =========================================================
+    // Country & City History Data (4 Countries · 10 Cities/Regions)
+    // =========================================================
+    const HISTORY_COUNTRIES = [
+      {
+        code: "DE",
+        flag: "🇩🇪",
+        name: "독일 · 바이에른 주 (Bavaria)",
+        period: "D1 ~ D3",
+        accentBg: "bg-blue-50/80 border-blue-200",
+        badgeClass: "bg-blue-100 text-blue-800",
+        summary: "가톨릭 전통과 독자적 왕국 문화를 지켜온 독일 남부의 심장부. 738년간 바이에른을 다스린 비텔스바흐 왕가가 궁전과 예술을 꽃피웠고, 1516년 맥주 순수령과 옥토버페스트가 오늘날의 맥주 문화를 만들었습니다.",
+        keywords: ["비텔스바흐 왕가", "맥주 순수령(1516)", "로만틱 가도", "알프스 관문"]
+      },
+      {
+        code: "IT",
+        flag: "🇮🇹",
+        name: "이탈리아 · 남티롤 & 돌로미티 (South Tyrol)",
+        period: "D4 ~ D7 (알프스 1안)",
+        accentBg: "bg-emerald-50/80 border-emerald-200",
+        badgeClass: "bg-emerald-100 text-emerald-800",
+        summary: "행정상 이탈리아지만 주민 약 70%가 독일어를 쓰는 특별한 자치주. 오스트리아 제국의 일부였다가 1차 세계대전 이후 이탈리아에 편입되었으며, 고대 알프스 토착민 '라딘(Ladin)' 문화까지 3개 문화가 공존합니다.",
+        keywords: ["오스트리아→이탈리아 편입", "1차 대전 알프스 산악전", "독·이·라딘 3중 문화", "유네스코 자연유산"]
+      },
+      {
+        code: "AT",
+        flag: "🇦🇹",
+        name: "오스트리아 (Austria)",
+        period: "D4~D8 대안 · D8~D11",
+        accentBg: "bg-rose-50/80 border-rose-200",
+        badgeClass: "bg-rose-100 text-rose-800",
+        summary: "선사시대 할슈타트 소금광산에서 시작해 640년간 중부 유럽을 호령한 합스부르크 제국의 본거지. 제국은 사라졌지만 빈의 궁전, 고전음악(모차르트·베토벤), 커피하우스, 도나우 바하우 계곡에 황금기의 숨결이 고스란히 남아 있습니다.",
+        keywords: ["합스부르크 640년", "소금과 철기 문화", "오스만 공방전 & 카페", "고전음악의 수도"]
+      },
+      {
+        code: "CZ",
+        flag: "🇨🇿",
+        name: "체코 · 보헤미아 (Bohemia)",
+        period: "D11 ~ D14",
+        accentBg: "bg-amber-50/80 border-amber-200",
+        badgeClass: "bg-amber-100 text-amber-900",
+        summary: "14세기 카를 4세 시절 신성로마제국의 수도로 전성기를 누렸고, 얀 후스의 종교개혁과 30년 전쟁의 진원지였던 유럽사의 십자로. 20세기 프라하의 봄과 피 한 방울 흘리지 않은 벨벳 혁명을 거쳐 자유를 되찾았습니다.",
+        keywords: ["카를 4세 황금기", "얀 후스 & 30년 전쟁", "필스너 라거(1842)", "프라하의 봄 & 벨벳 혁명"]
+      }
+    ];
+
+    const HISTORY_CITIES = [
+      {
+        id: "munich",
+        country: "DE",
+        name: "1. 뮌헨 (Munich)",
+        dayBadge: "D1 ~ D3 거점",
+        hook: "수도사들의 소금 나루터에서 바이에른 왕국의 수도이자 세계 맥주의 성지로",
+        timeline: [
+          { year: "1158", text: "사자공 하인리히가 이자르강 다리를 불태우고 새 다리와 통행세를 세우며 '수도사들의 땅(München)' 공식 탄생" },
+          { year: "1516", text: "바이에른 공작 빌헬름 4세, 물·보리·홉 외 첨가물을 금지한 세계 최초 식품법 '맥주 순수령(Reinheitsgebot)' 반포" },
+          { year: "1810", text: "루트비히 황태자 결혼 축하 경마 대회가 시초가 되어 세계 최대 축제 '옥토버페스트' 시작" },
+          { year: "1945~", text: "2차 대전 폭격으로 구시가지 90%가 파괴되었으나 옛 설계도대로 완벽히 복원, BMW·지멘스 중심의 독일 최고 부촌으로 재도약" }
+        ],
+        behind: [
+          "🍺 <b>Augustiner-Keller(D3 저녁)의 역사:</b> 1328년 아우구스티누스 수도원 양조장에서 출발한 뮌헨 최고(最古) 브루어리입니다. 1812년 맥주 저장 지하창고(Keller) 위에 밤나무를 심어 그늘을 만든 것이 오늘날 '비어가르텐(Biergarten)'의 원형입니다.",
+          "🕰️ <b>마리엔 광장 신시청사 인형시계(Glockenspiel):</b> 1568년 왕실 결혼식 마상 시합과, 1517년 흑사병 종식을 축하하며 춤추던 맥주통 제작공(Schäfflertanz)들의 이야기를 매일 재현합니다."
+        ],
+        tip: "신시청사는 고딕 양식이라 수백 년 된 것 같지만 사실 1867~1909년에 지어진 네오고딕 건물입니다. 마리엔 광장 황금 성모상(1638)은 30년 전쟁 중 스웨덴군 점령에서 도시가 파괴되지 않은 감사의 표시로 세워졌습니다."
+      },
+      {
+        id: "fussen",
+        country: "DE",
+        name: "2. 퓌센 & 노이슈반슈타인 성 (Füssen)",
+        dayBadge: "D2 당일치기",
+        hook: "로마 제국 알프스 관문 위에 세워진 '동화 왕' 루트비히 2세의 낭만과 비극",
+        timeline: [
+          { year: "기원후 1세기", text: "로마 제국이 이탈리아와 독일을 잇는 군사도로 '비아 클라우디아 아우구스타(Via Claudia Augusta)'를 개통하며 전략 요충지로 성장" },
+          { year: "1869", text: "바이에른 국왕 루트비히 2세, 작곡가 리하르트 바그너의 오페라 〈로엔그린〉에 영감받아 노이슈반슈타인 성 착공" },
+          { year: "1886", text: "국고 탕진과 정치적 갈등으로 폐위된 직후, 루트비히 2세가 슈타른베르크 호수에서 의문사(성 입주 172일 만)" },
+          { year: "1886.8", text: "왕의 사후 7주 만에 일반에 공개되자 전 세계 관광객이 몰려들며 바이에른 최고의 효자 유산으로 변모" }
+        ],
+        behind: [
+          "🏰 <b>중세 성이 아니라 19세기 최첨단 저택:</b> 겉모습은 중세 기사도 성이지만, 내부에는 중앙난방·수세식 화장실·전화기·음식용 엘리베이터까지 갖춘 19세기 말 첨단 건축물입니다.",
+          "🦢 <b>디즈니 성의 모델 & 알프제 호수:</b> 월트 디즈니가 신혼여행 중 이 성을 보고 〈잠자는 숲속의 공주〉 성을 디자인했습니다. 성 아래 알프제(Alpsee) 호수는 루트비히 2세가 어린 시절 백조를 보며 꿈을 키우던 곳입니다."
+        ],
+        tip: "마리엔 다리(Marienbrücke)에서 성을 바라볼 때, 뒤편의 호엔슈방가우 성(노란색)이 루트비히 2세가 어린 시절을 보낸 실제 아버지의 궁전입니다. 두 성을 비교해 보면 아들의 판타지가 얼마나 거대했는지 실감납니다."
+      },
+      {
+        id: "garmisch",
+        country: "DE",
+        name: "3. 가르미슈-파르텐키르헨 (Garmisch-Partenkirchen)",
+        dayBadge: "D3 당일치기",
+        hook: "로마 교역로 위 두 마을의 강제 통합과 알프스 협곡의 거친 숨결",
+        timeline: [
+          { year: "기원후 15년", text: "베네치아~아우크스부르크 무역로에 로마 주둔지 '파르타눔(Partanum)' 형성 → 현재 파르텐키르헨의 기원" },
+          { year: "1912", text: "파르트나흐 협곡(Partnachklamm)이 천연기념물로 지정되며, 과거 목재를 떠내려 보내던 위험한 협곡에 관광용 터널·산책로 개통" },
+          { year: "1935", text: "1936년 동계올림픽 유치를 위해 나치 정권이 이웃한 '가르미슈'와 '파르텐키르헨' 두 마을을 강제로 합병" },
+          { year: "1936", text: "제4회 동계올림픽 개최(알파인 스키 최초 정식 종목 채택) — 오늘날까지 신년 스키점프 대회의 성지로 이어짐" }
+        ],
+        behind: [
+          "🎨 <b>뤼프틀말러라이(Lüftlmalerei) 벽화:</b> 파르텐키르헨 루트비히 거리의 건물 외벽을 가득 채운 화려한 프레스코 벽화는 18세기 부유한 상인들이 성경 이야기와 사냥 장면을 그려 넣어 부를 과시하던 바이에른 특유의 전통입니다.",
+          "🌊 <b>파르트나흐 협곡의 과거:</b> 빙하가 녹은 급류가 80m 높이 석회암 절벽을 깎아 만든 협곡으로, 19세기까지 산악 벌목꾼들이 통나무를 급류에 띄워 아래 마을로 운반하던 목숨 건 일터였습니다."
+        ],
+        tip: "협곡 입구 바로 앞에 1936년 올림픽 스키점프 경기장이 그대로 서 있습니다. 협곡 트레킹 전후로 경기장 전경을 함께 보시면 1930년대 알프스 현대사가 한눈에 들어옵니다."
+      },
+      {
+        id: "dolomites",
+        country: "IT",
+        name: "4. 볼차노 & 돌로미티 (남티롤 · South Tyrol)",
+        dayBadge: "D4 ~ D7 (알프스 1안)",
+        hook: "오스트리아의 영혼과 이탈리아의 태양이 만나는 곳, 1차 대전 산악전의 흔적",
+        timeline: [
+          { year: "1363", text: "티롤 백국이 합스부르크 가문에 귀속되며 약 550년간 오스트리아 문화권으로 번영" },
+          { year: "1789", text: "프랑스 지질학자 데오다 드 돌로미외가 이 산맥의 독특한 백운석(Dolomite) 성분을 발견 → '돌로미티' 명명" },
+          { year: "1915~1918", text: "제1차 세계대전 '하얀 전쟁(White War)' — 이탈리아군과 오스트리아군이 해발 2,500m 이상 트레 치메·마르몰라다 절벽에 참호와 동굴을 파고 사투" },
+          { year: "1919", text: "생제르맹 조약으로 남티롤이 이탈리아에 편입. 이후 오랜 자치권 투쟁 끝에 1972년 광범위한 자치권과 이중언어 체제 확립" }
+        ],
+        behind: [
+          "🗣️ <b>3개 언어가 공존하는 발 가르데나(Val Gardena):</b> 도로 표지판에 독일어(St. Ulrich), 이탈리아어(Ortisei), 그리고 로마 시대 라틴어에서 파생된 토착어 '라딘어(Urtijëi)'가 나란히 적혀 있습니다.",
+          "❄️ <b>볼차노의 5,300년 미라 '외치(Ötzi)':</b> 1991년 알프스 빙하에서 발견된 신석기시대 냉동 미라가 볼차노 고고학 박물관에 보관되어 있습니다. 알프스 고개가 선사시대부터 교역로였음을 증명합니다."
+        ],
+        tip: "트레 치메 디 라바레도(D6) 순환 트레킹 중 바위 절벽 곳곳에 뚫린 네모난 구멍들이 바로 1차 세계대전 당시 군인들이 팠던 실제 포대·참호 동굴입니다. 평화로운 풍경 속에 담긴 전쟁의 기억을 함께 느껴보세요."
+      },
+      {
+        id: "austria_alps",
+        country: "AT",
+        name: "5. 호에 타우에른 & 슐라트밍-다흐슈타인",
+        dayBadge: "D4 ~ D8 (알프스 2·3안)",
+        hook: "중세 알프스 금·은 광산과 대주교령 교역로가 빚어낸 오스트리아 알프스의 원형",
+        timeline: [
+          { year: "중세~16C", text: "호에 타우에른(잘츠부르크 대주교령)의 금광과 슐라트밍(슈타이어마르크)의 은·구리 광산이 유럽 최대 부의 원천으로 번성" },
+          { year: "1525", text: "슐라트밍 광부들과 농민들이 종교개혁·과세에 항거해 독일 농민전쟁의 일환으로 봉기 → 도시가 불타고 재건되는 격동의 역사" },
+          { year: "1935", text: "호에 타우에른을 남북으로 관통하는 그로스글로크너 고산도로 개통(실업자 구제 및 알프스 관광의 전환점)" },
+          { year: "1981~", text: "오스트리아 최초 국립공원 '호에 타우에른' 지정 & 슐라트밍 알파인 스키 세계선수권(1982·2013) 개최로 사계절 트레킹·스키 성지화" }
+        ],
+        behind: [
+          "⛪ <b>슐라트밍이 '오스트리아 속 개신교 마을'인 이유:</b> 가톨릭 일색인 오스트리아에서 슐라트밍 지역은 16세기 광부들을 중심으로 루터교가 깊이 뿌리내려, 비밀 예배를 거쳐 오늘날까지 강한 개신교 전통을 간직하고 있습니다.",
+          "🏔️ <b>알름(Alm) 고산 목초지 문화:</b> 여름철 소를 해발 1,500~2,000m 초원으로 올려 방목하고 산장(Hütte)에서 치즈와 버터를 만들던 수백 년 전통이 오늘날 알프스 트레킹 산장 음식 문화의 뿌리입니다."
+        ],
+        tip: "산장에서 마시는 발효 버터밀크(Buttermilch)나 카이저슈마른(황제의 팬케이크)은 단순한 간식이 아니라, 험준한 알프스 고지대에서 목동과 등산객에게 열량을 공급하던 전통 식문화입니다."
+      },
+      {
+        id: "hallstatt",
+        country: "AT",
+        name: "6. 할슈타트 (Hallstatt)",
+        dayBadge: "D8 경유지",
+        hook: "인류 최초의 소금광산, 유럽 초기 철기시대에 자신의 이름을 남긴 호수 마을",
+        timeline: [
+          { year: "기원전 5000년", text: "인류 역사상 가장 오래된 암염(소금) 채굴 흔적 — 산속 소금이 '하얀 황금'으로 불리며 고대 유럽 전역과 교역" },
+          { year: "기원전 800~450", text: "이 지역에서 출토된 수천 기의 무덤과 유물이 유럽 초기 철기 문명의 기준이 되어 '할슈타트 문화(Hallstatt Culture)'로 명명" },
+          { year: "1311", text: "합스부르크 가문이 소금 독점권을 확보하며 황실 직할지(잘츠카머구트·Salzkammergut, '소금 창고 영지')로 편입" },
+          { year: "1997", text: "7,000년 소금 산업의 역사성과 알프스 호수 경관을 인정받아 유네스코 세계문화유산 등재" }
+        ],
+        behind: [
+          "🧂 <b>'Hall'의 어원:</b> 켈트어로 '소금'을 뜻합니다. 할슈타트(Hallstatt), 할라인(Hallein), 잘츠부르크(Salzburg) 모두 소금 무역으로 번성한 도시들입니다.",
+          "💀 <b>납골당(Beinhaus)의 독특한 풍습:</b> 가파른 절벽과 호수 사이 평지가 극도로 좁아 묘지 공간이 부족하자, 10~15년 뒤 유골을 파내 두개골에 이름과 꽃무늬를 그려 봉안하는 전통이 생겼습니다."
+        ],
+        tip: "1890년 도로가 뚫리기 전까지 할슈타트는 오직 배로만 접근할 수 있는 고립된 마을이었습니다. 좁은 골목과 층층이 쌓인 목조 가옥은 그 지형적 제약이 빚어낸 결과물입니다."
+      },
+      {
+        id: "vienna",
+        country: "AT",
+        name: "7. 빈 (Vienna)",
+        dayBadge: "D8 ~ D11 거점",
+        hook: "합스부르크 640년 제국의 심장, 오스만을 막아낸 커피와 고전음악의 수도",
+        timeline: [
+          { year: "1278", text: "루돌프 1세가 마르히펠트 전투에서 승리하며 1918년까지 640년간 이어질 합스부르크 제국의 기틀 마련" },
+          { year: "1683", text: "제2차 빈 공방전에서 오스만 제국군을 격퇴 — 유럽 기독교 세계를 지켜내며 바로크 황금기(쇤브룬 궁전 등) 개막" },
+          { year: "18C~19C", text: "마리아 테레지아·프란츠 요제프 1세 치하에서 하이든·모차르트·베토벤·슈베르트·요한 슈트라우스가 활동하며 세계 음악의 수도로 등극" },
+          { year: "1857~1918", text: "성벽을 허물고 순환도로 '링슈트라세(Ringstraße)' 건설(오페라극장·시청사). 1918년 1차 대전 패전으로 제국 해체 후 공화국 수도로 전환" }
+        ],
+        behind: [
+          "☕ <b>빈 3대 카페(D9)와 크루아상의 탄생:</b> 1683년 오스만군이 퇴각하며 남긴 커피 원두 자루로 빈 최초의 커피하우스가 열렸고, 오스만 국기의 초승달을 씹어 먹겠다는 의미로 초승달 빵(Kipferl → 프랑스 크루아상)을 구웠습니다.",
+          "🍷 <b>베토벤과 Mayer am Pfarrplatz(D9 저녁):</b> 베토벤은 청력을 잃어가던 절망 속에서 빈 외곽 하일리겐슈타트에 머물며 유서를 쓰고 〈교향곡 9번〉을 구상했습니다. 그가 실제 거주했던 집이 바로 우리가 갈 호이리게 와인농가입니다.",
+          "🍲 <b>Plachutta 타펠슈피츠(D10):</b> 합스부르크 마지막 황제 프란츠 요제프 1세가 매일 점심으로 즐겼던 소고기 수육 요리로, 황실 식탁의 상징이 되었습니다."
+        ],
+        tip: "쇤브룬 궁전(D9)은 프랑스 베르사유 궁전에 맞서 마리아 테레지아가 확장한 여름 궁전입니다. 궁전 외벽의 따뜻한 노란색은 '쇤브룬 옐로우(Schönbrunn Yellow)'라 불리며 합스부르크 제국의 공식 상징색이었습니다."
+      },
+      {
+        id: "wachau",
+        country: "AT",
+        name: "8. 바하우 계곡 — 멜크 & 뒤른슈타인 (Wachau)",
+        dayBadge: "D10 당일치기",
+        hook: "도나우강 절벽 위 바로크 수도원과 사자심왕 리처드 1세가 갇혔던 성채",
+        timeline: [
+          { year: "1089", text: "바벤베르크 가문이 멜크 절벽 위 요새를 베네딕트 수도회에 기증 → 중부 유럽 최고 학문·신앙 중심지 '멜크 수도원' 탄생" },
+          { year: "1192", text: "제3차 십자군 원정에서 귀환하던 잉글랜드 국왕 '사자심왕' 리처드 1세가 오스트리아 공작에게 생포되어 뒤른슈타인 성에 유폐" },
+          { year: "1702~1736", text: "화재로 소실된 멜크 수도원을 당대 최고 건축가 야코프 프란트라우어가 황금빛 바로크 걸작으로 재건" },
+          { year: "2000", text: "로마 시대부터 이어진 계단식 포도밭과 중세 수운 마을의 원형을 인정받아 바하우 계곡 전역 유네스코 세계유산 등재" }
+        ],
+        behind: [
+          "👑 <b>사자심왕 리처드 1세의 몸값:</b> 뒤른슈타인 성에 갇힌 리처드 왕을 구하기 위해 잉글랜드가 지불한 몸값은 은 35톤(당시 잉글랜드 국가 예산의 2~3년치)! 이 막대한 자금이 빈 성벽 확장과 오스트리아 도시 건설에 쓰였습니다.",
+          "📖 <b>소설 〈장미의 이름〉의 모델:</b> 움베르토 에코의 명작 〈장미의 이름〉 화자인 수련승 '멜크의 아드소'가 바로 이 멜크 수도원 출신이며, 수도원 내 10만 권 장서의 바로크 도서관이 작품의 영감이 되었습니다."
+        ],
+        tip: "도나우 유람선을 타고 멜크→뒤른슈타인으로 내려갈 때, 강변 언덕을 덮은 계단식 돌담 포도밭을 유심히 보세요. 로마 군단이 심은 포도가 1,000년 넘게 이어져 세계적 화이트 와인 '그뤼너 펠트리너'와 '리슬링'을 생산하고 있습니다."
+      },
+      {
+        id: "prague",
+        country: "CZ",
+        name: "9. 프라하 (Prague)",
+        dayBadge: "D11 ~ D14 거점",
+        hook: "중세 황금기 제국의 수도에서 종교전쟁의 불씨, 그리고 피 없는 벨벳 혁명까지",
+        timeline: [
+          { year: "1346~1378", text: "보헤미아 왕이자 신성로마제국 황제 카를 4세의 황금기 — 카를교, 카를 대학(중부유럽 최초), 성 비투스 대성당 건립" },
+          { year: "1415 & 1618", text: "종교개혁가 얀 후스 화형 후 후스 전쟁 발발 → 1618년 '프라하 창밖 투척 사건'이 유럽을 휩쓴 30년 전쟁의 도화선" },
+          { year: "1842", text: "보헤미아 플젠(Plzeň)에서 세계 최초의 투명한 황금빛 라거 '필스너 우르켈' 탄생 → 전 세계 맥주의 표준을 바꿈" },
+          { year: "1968 & 1989", text: "소련 탱크에 짓밟힌 민주화 운동 '프라하의 봄(1968)'의 아픔을 딛고, 1989년 바츨라프 광장 '벨벳 혁명'으로 무혈 민주화 달성" }
+        ],
+        behind: [
+          "🪟 <b>프라하 창밖 투척 사건(Defenestration):</b> 체코 역사에는 항의의 표시로 관료를 창밖으로 던진 사건이 무려 3번이나 있습니다. 1618년 프라하 성 창문에서 떨어진 합스부르크 사절들이 거름더미에 떨어져 목숨을 건졌으나, 이 사건이 30년 전쟁을 촉발했습니다.",
+          "🌉 <b>카를교(1357)의 숫자 비밀:</b> 점성술을 신봉한 카를 4세는 1357년 7월 9일 오전 5시 31분에 초석을 놓았습니다. 숫자를 나열하면 '1-3-5-7-9-7-5-3-1' 완벽한 대칭(회문)이 됩니다.",
+          "🍺 <b>Lokál 탱크 맥주(D12):</b> 체코는 1인당 맥주 소비량 부동의 세계 1위입니다. 1842년 필스너 탄생 이후 '신선한 비살균 라거'를 최고의 미덕으로 삼아 탱크 맥주 문화가 발전했습니다."
+        ],
+        tip: "프라하는 2차 세계대전 당시 대규모 연합군 폭격을 피해 중세·바로크·아르누보 건축이 원형 그대로 보존된 보기 드문 유럽 수도입니다. 카를교 위 30개 성인상 중 8번째 '성 얀 네포무츠키' 동상 아래 황금빛 부조를 만지면 프라하에 다시 온다는 전설이 있습니다."
+      },
+      {
+        id: "karlstejn",
+        country: "CZ",
+        name: "10. 카를슈테인 성 & 보헤미안 스위스",
+        dayBadge: "D13 근교 옵션",
+        hook: "제국의 왕관을 숨긴 철옹성 요새 vs 낭만주의 화가들이 반한 협곡 비경",
+        timeline: [
+          { year: "1348", text: "카를 4세가 신성로마제국 황제 대관식 왕관과 성유물을 보관하기 위해 프라하 남서쪽 절벽 위에 '카를슈테인 성' 착공" },
+          { year: "1422", text: "후스 전쟁 당시 반군이 6개월간 포위하고 투석기로 공격했으나 끝내 함락되지 않은 난공불락의 요새" },
+          { year: "1766", text: "드레스덴에서 활동하던 스위스 출신 화가 아드리안 칭과 안톤 그라프가 엘베강 사암 협곡 풍경에 반해 '보헤미안 스위스(Bohemian Switzerland)'라 명명" },
+          { year: "2000", text: "보헤미안 스위스가 체코 국립공원으로 지정, 유럽 최대 자연 사암 아치 '프라우치츠카 브라나'가 상징 명소로 자리매김" }
+        ],
+        behind: [
+          "👑 <b>성 십자가 예배당의 황금:</b> 카를슈테인 성 최상층 예배당은 2,200여 개의 보헤미아산 준보석과 순금으로 벽면을 장식해 '천국의 예루살렘'을 지상에서 구현하려 했습니다.",
+          "🎬 <b>보헤미안 스위스의 지질사:</b> 약 9,000만 년 전 백악기 바다 밑에 쌓인 모래가 융기한 뒤 바람과 물에 깎여 기암괴석과 아치가 탄생했습니다. 영화 〈나니아 연대기〉 촬영지로도 유명합니다."
+        ],
+        tip: "D13 근교 일정에서 역사·건축 취향이라면 프라하에서 기차 40분 거리의 '카를슈테인 성'이, 대자연 트레킹 취향이라면 독일 국경 맞닿은 '보헤미안 스위스'가 최고의 선택입니다."
+      }
+    ];
+
+    let activeHistoryCountry = "ALL";
+
+    function filterHistoryCountry(countryCode) {
+      activeHistoryCountry = countryCode;
+      document.querySelectorAll(".history-filter-btn").forEach(btn => {
+        const isActive = btn.dataset.historyFilter === countryCode;
+        btn.className = isActive
+          ? "history-filter-btn px-3 py-1.5 rounded-lg bg-slate-900 text-white font-bold transition"
+          : "history-filter-btn px-3 py-1.5 rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200 font-semibold transition";
+      });
+      renderHistorySection(countryCode);
+    }
+
+    function toggleHistoryDetail(cityId) {
+      const panel = document.getElementById(`history-detail-${cityId}`);
+      const icon = document.getElementById(`history-toggle-icon-${cityId}`);
+      if (!panel) return;
+      const isHidden = panel.classList.contains("hidden");
+      panel.classList.toggle("hidden", !isHidden);
+      if (icon) icon.textContent = isHidden ? "접기 ▲" : "비하인드·관람팁 펼치기 ▼";
+    }
+
+    function renderHistorySection(countryFilter = "ALL") {
+      const container = document.getElementById("history-content-container");
+      if (!container) return;
+
+      const countries = countryFilter === "ALL"
+        ? HISTORY_COUNTRIES
+        : HISTORY_COUNTRIES.filter(c => c.code === countryFilter);
+
+      container.innerHTML = countries.map(country => {
+        const cities = HISTORY_CITIES.filter(city => city.country === country.code);
+        return `
+          <div class="space-y-4">
+            <!-- Country Editorial Header -->
+            <div class="rounded-2xl border ${country.accentBg} p-5 space-y-2.5">
+              <div class="flex flex-wrap items-center justify-between gap-2">
+                <h3 class="text-lg font-extrabold text-slate-900 flex items-center gap-2">
+                  <span>${country.flag}</span>
+                  <span>${country.name}</span>
+                </h3>
+                <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold ${country.badgeClass}">${country.period}</span>
+              </div>
+              <p class="text-xs sm:text-sm text-slate-700 leading-relaxed">${country.summary}</p>
+              <div class="flex flex-wrap gap-1.5 pt-1">
+                ${country.keywords.map(kw => `<span class="px-2 py-0.5 rounded-md bg-white/80 border border-slate-200 text-[11px] font-semibold text-slate-700">#${kw}</span>`).join("")}
+              </div>
+            </div>
+
+            <!-- City Cards Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+              ${cities.map(city => `
+                <article class="bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition p-5 flex flex-col justify-between gap-4">
+                  <div class="space-y-3.5">
+                    <div class="flex items-start justify-between gap-2">
+                      <div>
+                        <span class="inline-block px-2 py-0.5 rounded-md text-[10px] font-bold ${country.badgeClass} mb-1">${city.dayBadge}</span>
+                        <h4 class="text-base font-extrabold text-slate-900">${city.name}</h4>
+                      </div>
+                    </div>
+                    <p class="text-xs font-semibold text-slate-700 bg-slate-50 border-l-4 border-slate-400 pl-3 py-2 rounded-r-lg leading-relaxed">
+                      “${city.hook}”
+                    </p>
+
+                    <!-- Timeline -->
+                    <div class="space-y-2 pt-1">
+                      <div class="text-[11px] font-extrabold text-slate-500 uppercase tracking-wider">핵심 연표</div>
+                      <ol class="space-y-2 border-l-2 border-slate-200 pl-3.5 ml-1">
+                        ${city.timeline.map(item => `
+                          <li class="relative text-xs text-slate-700 leading-relaxed">
+                            <span class="absolute -left-[19px] top-1.5 w-2 h-2 rounded-full bg-slate-400 ring-2 ring-white"></span>
+                            <span class="font-mono-tech font-bold text-slate-900 mr-1.5">${item.year}</span>
+                            <span>${item.text}</span>
+                          </li>
+                        `).join("")}
+                      </ol>
+                    </div>
+                  </div>
+
+                  <!-- Collapsible Behind-the-Scenes & Field Tip -->
+                  <div class="pt-3 border-t border-slate-100">
+                    <button type="button" onclick="toggleHistoryDetail('${city.id}')"
+                            class="w-full flex items-center justify-between text-xs font-bold text-indigo-700 hover:text-indigo-900 bg-indigo-50/70 hover:bg-indigo-100/70 px-3.5 py-2 rounded-xl transition">
+                      <span>💡 명소·맛집 비하인드 &amp; 현장 관람 팁</span>
+                      <span id="history-toggle-icon-${city.id}" class="text-[11px]">비하인드·관람팁 펼치기 ▼</span>
+                    </button>
+                    <div id="history-detail-${city.id}" class="hidden mt-3 space-y-3 text-xs leading-relaxed">
+                      <ul class="space-y-2 text-slate-700 bg-slate-50 rounded-xl p-3.5 border border-slate-200/80">
+                        ${city.behind.map(b => `<li>${b}</li>`).join("")}
+                      </ul>
+                      <div class="bg-amber-50/70 border border-amber-200/80 rounded-xl p-3.5 text-amber-950">
+                        <span class="font-extrabold">👀 알고 보면 2배 재밌는 포인트:</span> ${city.tip}
+                      </div>
+                    </div>
+                  </div>
+                </article>
+              `).join("")}
+            </div>
+          </div>
+        `;
+      }).join("");
+    }
+
     let appInitialized = false;
     function startApp() {
       if (appInitialized) {
@@ -2419,6 +2802,7 @@
       initMap();
       renderSchedule("ALL");
       renderPlaces("ALL");
+      renderHistorySection("ALL");
       updateBudget();
       loadFeedback();
       const hashId = (window.location.hash || "").replace("#", "");
