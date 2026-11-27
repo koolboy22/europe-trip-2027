@@ -150,8 +150,8 @@
         </div>
         <div class="rounded-xl bg-slate-50 border border-slate-200 p-4">
           <div class="font-mono-tech text-[10px] font-semibold text-slate-500 uppercase tracking-wider">ESTIMATED BUDGET</div>
-          <div class="text-lg sm:text-xl font-extrabold text-emerald-700 mt-1">1인 320~342만 원</div>
-          <div class="text-xs text-slate-600 mt-1">5인 총 약 1,600~1,710만 (항공 별도)</div>
+          <div class="text-lg sm:text-xl font-extrabold text-emerald-700 mt-1">총 €11,476 (1인 €2,295)</div>
+          <div class="text-xs text-slate-600 mt-1">실조회 숙소 14박 반영 · 항공 별도</div>
         </div>
       </div>
     </div>
@@ -1918,8 +1918,8 @@
       const fx = parseInt(document.getElementById("fx-rate").value, 10);
       document.getElementById("fx-rate-label").textContent = fx.toLocaleString() + "원";
 
-      let lodging = 3780;
-      let transport = 2660;
+      let lodging = 4976;
+      let transport = 1910;
       let food = 3940;
       let tickets = 650;
 
@@ -1947,10 +1947,10 @@
       }
 
       const rows = [
-        { cat: "🏠 숙소 (14박)", desc: "에어비앤비 별채/아파트 4곳 (프라하4[9/24밤도착]·빈3·슐라트밍4·뮌헨3)", eur: lodging },
-        { cat: "🚆 교통", desc: "도시간 기차 2구간 + 알프스 9인승 밴 렌트 4일 + 케이블카 + 시내교통", eur: transport },
+        { cat: "🏠 숙소 (14박 실조회)", desc: "프라하 €1,200(4박·도시세포함) + 빈 €1,066(3박) + 슐라트밍 €1,488(4박·카드포함) + 뮌헨 €1,222(3박)", eur: lodging },
+        { cat: "🚆 교통", desc: "도시간 기차 2구간 + 알프스 9인승 밴 렌트 4일 + 시내교통 (다흐슈타인·플라나이 Sommercard 무료 반영)", eur: transport },
         { cat: "🍽️ 식비", desc: "도시별 맛집 디너 4회 + 호이리게 1회 + 마트 장보기 만찬 9회 + 아침·점심·맥주", eur: food },
-        { cat: "🎟️ 입장료·투어", desc: "프라하 성·맥주스파·블타바 크루즈, 쇤브룬·바하우 유람선, 다흐슈타인(카드 무료), 노이슈반슈타인성·파르트나흐 협곡", eur: tickets }
+        { cat: "🎟️ 입장료·투어", desc: "프라하 성·맥주스파·블타바 크루즈, 쇤브룬·바하우 유람선, 노이슈반슈타인성·파르트나흐 협곡", eur: tickets }
       ];
 
       document.getElementById("budget-tbody").innerHTML = rows.map(r => `
