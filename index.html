@@ -649,8 +649,9 @@
         </div>
         <div class="flex flex-wrap items-center gap-3 bg-slate-50 px-4 py-2.5 rounded-xl border border-slate-200">
           <label for="fx-rate" class="text-xs font-bold text-slate-600">적용 환율 (1€)</label>
-          <input id="fx-rate" type="range" min="1350" max="1750" step="10" value="1550" oninput="updateBudget()" class="w-28 accent-blue-600" />
+          <input id="fx-rate" type="range" min="1350" max="1950" step="10" value="1550" oninput="updateBudget()" class="w-28 accent-blue-600" />
           <span id="fx-rate-label" class="text-sm font-extrabold text-blue-700">1,550원</span>
+          <span id="fx-live-badge" class="hidden text-[11px] font-semibold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full"></span>
           <button type="button" onclick="fetchLiveFx(true)" id="btn-live-fx"
                   class="px-2.5 py-1 rounded-lg bg-white border border-slate-200 hover:bg-blue-50 hover:border-blue-300 text-[11px] font-bold text-slate-700 transition">
             🔄 실시간 환율
@@ -2757,6 +2758,7 @@
       renderPlaces("ALL");
       renderHistorySection("ALL");
       updateBudget();
+      fetchLiveFx(false);
       loadFeedback();
       const hashId = (window.location.hash || "").replace("#", "");
       if (hashId && document.getElementById(hashId)?.classList.contains("main-tab-section")) {
@@ -2836,26 +2838,49 @@
 
     async function fetchLiveFx(showAlert) {
       const btn = document.getElementById("btn-live-fx");
+      const badge = document.getElementById("fx-live-badge");
       if (btn) {
         btn.disabled = true;
         btn.textContent = "조회 중...";
       }
       try {
-        const res = await fetch("/api/fx");
-        if (!res.ok) throw new Error("FX API unavailable");
-        const data = await res.json();
+        let data = null;
+        try {
+          const res = await fetch("/api/fx");
+          if (res.ok) data = await res.json();
+        } catch (err) {}
+
+        // Fallback to Frankfurter API directly on local static server
+        if (!data || !data.rate) {
+          const extRes = await fetch("https://api.frankfurter.app/latest?from=EUR&to=KRW");
+          if (!extRes.ok) throw new Error("FX API unavailable");
+          const extJson = await extRes.json();
+          const rawRate = extJson && extJson.rates && Number(extJson.rates.KRW);
+          if (!rawRate || Number.isNaN(rawRate)) throw new Error("Invalid KRW rate");
+          data = {
+            rate: Math.round(rawRate / 10) * 10,
+            rawRate: Math.round(rawRate * 100) / 100,
+            date: extJson.date || null,
+            source: "frankfurter-direct"
+          };
+        }
+
         if (data && data.rate) {
           const slider = document.getElementById("fx-rate");
-          const clamped = Math.min(1750, Math.max(1350, data.rate));
+          const clamped = Math.min(1950, Math.max(1350, data.rate));
           slider.value = clamped;
           updateBudget();
+          if (badge) {
+            badge.textContent = data.date ? `🟢 실시간 반영 (${data.date})` : "🟢 실시간 반영";
+            badge.classList.remove("hidden");
+          }
           if (showAlert) {
             const note = data.date ? ` (${data.date} 기준 ${data.rawRate}원)` : " (기본 환율 적용)";
             alert(`✅ 실시간 유로 환율 1€ = ${clamped.toLocaleString()}원 반영 완료${note}`);
           }
         }
       } catch (e) {
-        if (showAlert) alert("⚠️ 실시간 환율 API는 Vercel 배포 환경에서 동작합니다. 슬라이더로 직접 조절해 주세요.");
+        if (showAlert) alert("⚠️ 실시간 환율 조회에 실패했습니다. 슬라이더로 직접 조절해 주세요.");
       } finally {
         if (btn) {
           btn.disabled = false;
