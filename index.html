@@ -681,31 +681,31 @@
             <div class="text-sm font-bold text-slate-800 mb-3">🎛️ 1,600만원 이내 맞춤용 절감 옵션 토글 (체크 시 즉시 반영)</div>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
               <label class="flex items-start gap-2.5 p-3 rounded-lg bg-white border border-slate-200 cursor-pointer hover:border-blue-400">
-                <input type="checkbox" id="opt-munich-suburb" onchange="updateBudget()" class="mt-0.5 accent-blue-600" />
-                <div>
-                  <div class="font-bold text-slate-800">뮌헨 숙소를 S반 외곽 역세권으로 (-€200)</div>
-                  <div class="text-slate-500 mt-0.5">약 31만원 절감 · 시내까지 S반 15분</div>
-                </div>
-              </label>
-              <label class="flex items-start gap-2.5 p-3 rounded-lg bg-white border border-slate-200 cursor-pointer hover:border-blue-400">
-                <input type="checkbox" id="opt-two-cars" onchange="updateBudget()" class="mt-0.5 accent-blue-600" />
-                <div>
-                  <div class="font-bold text-slate-800">9인승 밴 대신 왜건/SUV 1대 특가 또는 대중교통 일부 병행 (-€220)</div>
-                  <div class="text-slate-500 mt-0.5">약 34만원 절감</div>
-                </div>
-              </label>
-              <label class="flex items-start gap-2.5 p-3 rounded-lg bg-white border border-slate-200 cursor-pointer hover:border-blue-400">
                 <input type="checkbox" id="opt-dinner-modest" onchange="updateBudget()" class="mt-0.5 accent-blue-600" />
                 <div>
-                  <div class="font-bold text-slate-800">맛집 디너 4회 예산을 1인 €50 수준으로 조정 (-€300)</div>
-                  <div class="text-slate-500 mt-0.5">약 46만원 절감 · 메인+맥주 2잔 충분</div>
+                  <div class="font-bold text-slate-800">맛집 디너 4회 5인 쉐어 주문 최적화 (-€300)</div>
+                  <div class="text-slate-500 mt-0.5">1인 €45~50 수준 · 추천 쉐어 가이드 기준</div>
+                </div>
+              </label>
+              <label class="flex items-start gap-2.5 p-3 rounded-lg bg-white border border-slate-200 cursor-pointer hover:border-blue-400">
+                <input type="checkbox" id="opt-early-train" onchange="updateBudget()" class="mt-0.5 accent-blue-600" />
+                <div>
+                  <div class="font-bold text-slate-800">도시간 기차 3~4개월 전 ČD/ÖBB 조기 특가 예매 (-€180)</div>
+                  <div class="text-slate-500 mt-0.5">프라하→빈 · 잘츠부르크→뮌헨 정가 대비 40~50% 절감</div>
                 </div>
               </label>
               <label class="flex items-start gap-2.5 p-3 rounded-lg bg-white border border-slate-200 cursor-pointer hover:border-blue-400">
                 <input type="checkbox" id="opt-lunch-picnic" onchange="updateBudget()" class="mt-0.5 accent-blue-600" />
                 <div>
-                  <div class="font-bold text-slate-800">트레킹 날 점심 3회를 마트 샌드위치 피크닉으로 (-€180)</div>
-                  <div class="text-slate-500 mt-0.5">약 28만원 절감 · 알프스 호수·폭포 뷰 피크닉 추천</div>
+                  <div class="font-bold text-slate-800">트레킹 점심 2회 피크닉/간편식 전환 (-€140)</div>
+                  <div class="text-slate-500 mt-0.5">보덴제 송어구이 등 핵심 맛집은 유지하면서 2회만 절감</div>
+                </div>
+              </label>
+              <label class="flex items-start gap-2.5 p-3 rounded-lg bg-white border border-slate-200 cursor-pointer hover:border-blue-400">
+                <input type="checkbox" id="opt-mart-party" onchange="updateBudget()" class="mt-0.5 accent-blue-600" />
+                <div>
+                  <div class="font-bold text-slate-800">펍 2차 대신 숙소 마트 맥주·와인 만찬 활용 (-€150)</div>
+                  <div class="text-slate-500 mt-0.5">체코·오스트리아 로컬 마트 맥주(€1~1.5) 적극 활용</div>
                 </div>
               </label>
             </div>
@@ -2025,10 +2025,10 @@
       let food = 3940;
       let tickets = 650;
 
-      if (document.getElementById("opt-munich-suburb").checked) lodging -= 200;
-      if (document.getElementById("opt-two-cars").checked) transport -= 220;
       if (document.getElementById("opt-dinner-modest").checked) food -= 300;
-      if (document.getElementById("opt-lunch-picnic").checked) food -= 180;
+      if (document.getElementById("opt-early-train").checked) transport -= 180;
+      if (document.getElementById("opt-lunch-picnic").checked) food -= 140;
+      if (document.getElementById("opt-mart-party").checked) food -= 150;
 
       const totalEur = lodging + transport + food + tickets;
       const totalKrwMan = Math.round((totalEur * fx) / 10000);
