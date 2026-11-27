@@ -614,7 +614,7 @@
           <button onclick="filterSchedule('ALL')" data-filter="ALL" class="sched-tab active-tab px-3 py-1.5 rounded-xl text-xs font-bold transition">전체 (15일)</button>
           <button onclick="filterSchedule('프라하')" data-filter="프라하" class="sched-tab bg-white border border-slate-200 text-slate-700 px-3 py-1.5 rounded-xl text-xs font-bold transition">🇨🇿 프라하 (D0~D3)</button>
           <button onclick="filterSchedule('빈')" data-filter="빈" class="sched-tab bg-white border border-slate-200 text-slate-700 px-3 py-1.5 rounded-xl text-xs font-bold transition">🇦🇹 빈 (D4~D6)</button>
-          <button onclick="filterSchedule('슐라트밍')" data-filter="슐라트밍" class="sched-tab bg-white border border-slate-200 text-slate-700 px-3 py-1.5 rounded-xl text-xs font-bold transition">🏔️ 슐라트밍 (D7~D10)</button>
+          <button onclick="filterSchedule('슐라트밍')" data-filter="슐라트밍" class="sched-tab bg-white border border-slate-200 text-slate-700 px-3 py-1.5 rounded-xl text-xs font-bold transition">🇦🇹 슐라트밍 (D7~D10)</button>
           <button onclick="filterSchedule('뮌헨')" data-filter="뮌헨" class="sched-tab bg-white border border-slate-200 text-slate-700 px-3 py-1.5 rounded-xl text-xs font-bold transition">🇩🇪 뮌헨 (D11~D14)</button>
         </div>
       </div>
@@ -1538,7 +1538,7 @@
     function renderDayRouteTabs() {
       const container = document.getElementById("day-route-tabs");
       const dayKeys = ["D0","D1","D2","D3","D4","D5","D6","D7","D8","D9","D10","D11","D12","D13","D14"];
-      const baseShort = { "프라하": "🇨🇿", "빈": "🇦🇹", "슐라트밍": "🏔️", "뮌헨": "🇩🇪" };
+      const baseShort = { "프라하": "🇨🇿", "빈": "🇦🇹", "슐라트밍": "🇦🇹", "뮌헨": "🇩🇪" };
       const buttonsHtml = [
         `<button onclick="selectRouteDay('ALL')" data-rday="ALL" class="rday-btn ${activeRouteDay === 'ALL' ? 'active-tab' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'} shrink-0 px-3.5 py-2 rounded-xl text-xs font-extrabold transition">🌍 15일 전체</button>`
       ];
@@ -2019,22 +2019,30 @@
         votes: data.votes || DEFAULT_FEEDBACK_STATE.votes,
         comments: data.comments || DEFAULT_FEEDBACK_STATE.comments
       };
-      if (Array.isArray(data.custom_schedule) && data.custom_schedule.length > 0) {
+      // Only apply cloud custom_schedule if it matches the current 2027.09.24~10.08 reverse schedule (ignore legacy Dolomites/Oct-9 saves)
+      if (
+        Array.isArray(data.custom_schedule) &&
+        data.custom_schedule.length > 0 &&
+        data.custom_schedule[0]?.day === "D0" &&
+        !data.custom_schedule.some(item => item.base === "돌로미티")
+      ) {
         SCHEDULE_DATA.splice(0, SCHEDULE_DATA.length, ...data.custom_schedule);
         renderSchedule(currentScheduleFilter || "ALL");
         renderDayRouteTabs();
       }
       if (Array.isArray(data.custom_places) && data.custom_places.length > 0) {
-        const mergedPlaces = data.custom_places.map(p => {
-          const meta = DEFAULT_PLACE_META[p.name] || {};
-          return {
-            ...p,
-            imgUrl: p.imgUrl || meta.imgUrl || "",
-            signatureMenu: p.signatureMenu || meta.signatureMenu || "",
-            menuImgUrl: p.menuImgUrl || meta.menuImgUrl || "",
-            orderGuide: p.orderGuide || meta.orderGuide || ""
-          };
-        });
+        const mergedPlaces = data.custom_places
+          .filter(p => p.base !== "돌로미티")
+          .map(p => {
+            const meta = DEFAULT_PLACE_META[p.name] || {};
+            return {
+              ...p,
+              imgUrl: p.imgUrl || meta.imgUrl || "",
+              signatureMenu: p.signatureMenu || meta.signatureMenu || "",
+              menuImgUrl: p.menuImgUrl || meta.menuImgUrl || "",
+              orderGuide: p.orderGuide || meta.orderGuide || ""
+            };
+          });
         const existingNames = new Set(mergedPlaces.map(p => p.name));
         const newDefaults = PLACES_DATA.filter(p => !existingNames.has(p.name));
         PLACES_DATA.splice(0, PLACES_DATA.length, ...mergedPlaces, ...newDefaults);
